@@ -916,8 +916,6 @@ import {mapState} from 'vuex'
             },
             clickTimeCategory(e){
 
-                console.log(e.category);
-
                 if (this.action_cita == 'E' || this.action_cita == 'A'){
                     var idx = this.facultativos.map(x => x.text).indexOf(e.category);
 

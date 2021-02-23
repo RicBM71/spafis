@@ -53,7 +53,7 @@ class GenericasSeeder extends Seeder
                 'txtpie2'   => $row->txtpie2,
                 'sms_usr'   => $row->smsusr,
                 'sms_password'=> $row->smspasswd,
-                'sms_licencia'=>$row->smslic,
+                'sms_api'=>$row->smslic,
                 'sms_sender'  =>$row->smssender,
                 'sms_pais'   =>$row->smspais,
                 'sms_zona'   =>$row->smszona,

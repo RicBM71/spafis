@@ -12,7 +12,6 @@ class SmsController extends Controller
 
     protected $api_key = 'b7a5a919574346a2b67a3a5cb2c18bad';
     protected $fake = '0';
-    protected $from = "Sanaval";
 
     public function index($dt){
 
@@ -87,7 +86,7 @@ class SmsController extends Controller
     private function setSendRequestSMS($messages){
 
         $request = [
-            'api_key'   => $this->api_key,
+            'api_key'   => session('empresa')->sms_api,
             'concat'    => '1',
             'fake'      => $this->fake,
             'encoding'  => 'UCS2',
@@ -121,7 +120,7 @@ class SmsController extends Controller
 
         if (strlen($cita->telefonom) != 9) return false;
 
-        $msg = 'Hola %n, tienes cita el %f. Si no puedes acudir, te agradeceríamos que nos lo comunicases con antelación. Gracias.';
+        $msg = 'Hola %n, tienes cita el %f. Si no puedes acudir te agradeceríamos que nos lo comunicases con antelación. Gracias.';
 
         $dt = Carbon::parse($cita->fecha.' '.$cita->hora);
         $fecha = $dt->isoFormat('dddd, D [de] MMMM [a las] H:mm');
@@ -129,11 +128,11 @@ class SmsController extends Controller
         $msg = str_replace('%n', mb_convert_case(trim($cita->nombre),MB_CASE_TITLE), $msg);
         $msg = str_replace('%f', $fecha, $msg);
 
-        $hora_envio = $programado ? ($dt->hour < 15) ?  $dt->subDay()->format('Y-m-d').' 18:00:00' : $dt->format('Y-m-d').' 10:00:00'
+        $hora_envio = $programado ? ($dt->hour < 15) ?  $dt->subDay()->format('Y-m-d').' '.session('empresa')->sms_am : $dt->format('Y-m-d').' '.session('empresa')->sms_pm
                                     : null;
 
         return [
-            "from"   => $this->from,
+            "from"   => session('empresa')->sms_sender,
             "to"     => "34".$cita->telefonom,
             "text"   => $msg,
             "custom" => $cita->id,

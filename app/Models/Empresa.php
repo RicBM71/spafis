@@ -35,7 +35,7 @@ class Empresa extends Model
 
         'nombre','razon','cif','poblacion','direccion','cpostal','provincia','telefono1','telefono2','contacto',
         'email', 'web','txtpie1','txtpie2','flags','sigla','titulo','img_logo','img_fondo','certificado',
-        'passwd_cer','ult_bono','sms_usr', 'sms_password', 'sms_licencia', 'sms_sender', 'sms_pais',
+        'passwd_cer','ult_bono','sms_usr', 'sms_password', 'sms_api', 'sms_sender', 'sms_pais',
         'sms_zona', 'sms_am', 'sms_pm', 'ccc_ss', 'tpv','username','disco'
 
     ];

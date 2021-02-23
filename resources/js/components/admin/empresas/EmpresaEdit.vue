@@ -225,11 +225,11 @@
                                     </v-col>
                                     <v-col cols="12" md="2">
                                         <v-text-field
-                                            v-model="empresa.sms_licencia"
-                                            :error-messages="errors.collect('sms_licencia')"
-                                            label="SMS Licencia"
-                                            data-vv-name="sms_licencia"
-                                            data-vv-as="licencia"
+                                            v-model="empresa.sms_api"
+                                            :error-messages="errors.collect('sms_api')"
+                                            label="SMS API"
+                                            data-vv-name="sms_api"
+                                            data-vv-as="api"
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>

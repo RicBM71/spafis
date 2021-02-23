@@ -48,7 +48,7 @@ class StoreEmpresas extends FormRequest
             'ult_bono'      => ['required','integer'],
             'sms_usr'       => ['nullable','string', 'max:30'],
             'sms_password'  => ['nullable','string', 'max:30'],
-            'sms_licencia'  => ['nullable','string', 'max:30'],
+            'sms_api'  => ['nullable','string', 'max:30'],
             'sms_sender'    => ['nullable','string', 'max:30'],
             'sms_pais'      => ['nullable','string', 'max:3'],
             'sms_zona'      => ['nullable','string', 'max:30'],

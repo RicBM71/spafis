@@ -62,7 +62,7 @@ class AdjuntosController extends Controller
             'adjunto' => ['required'],
         ]);
 
-        $disco = "docs/d2020";
+        $disco = "docs/".session('empresa')->disco;
 
         //$files = request()->file('files')->store($path,'local');
 
