@@ -53,7 +53,7 @@ class GenericasSeeder extends Seeder
                 'txtpie2'   => $row->txtpie2,
                 'sms_usr'   => $row->smsusr,
                 'sms_password'=> $row->smspasswd,
-                'sms_api'=>$row->smslic,
+                'sms_api'     =>'b7a5a919574346a2b67a3a5cb2c18bad',
                 'sms_sender'  =>$row->smssender,
                 'sms_pais'   =>$row->smspais,
                 'sms_zona'   =>$row->smszona,
@@ -61,7 +61,7 @@ class GenericasSeeder extends Seeder
                 'sms_pm'     =>$row->smspm,
                 'ccc_ss'     =>$row->cccss,
                 'tpv'        =>true,
-                'disco'      =>'disk',
+                'disco'      =>'disco1',
                 'created_at' => $row->sysfum.' 00:00:00',
                 'updated_at' => $row->sysfum.' '.$row->syshum,
                 'username'   => $row->sysusr

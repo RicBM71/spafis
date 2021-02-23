@@ -436,7 +436,6 @@ export default {
             })
                 .then(res => {
 
-                    console.log(res.data);
                     if (res.data != false){
                         this.cita.bono = res.data.bono;
                         this.cita.importe = res.data.importe;

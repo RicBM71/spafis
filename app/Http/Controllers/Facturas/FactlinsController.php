@@ -39,6 +39,27 @@ class FactlinsController extends Controller
             ];
     }
 
+    public function update(Request $request, Factlin $factlin)
+    {
+
+        $data = $request->validate([
+            'factura_id' => ['required','integer'],
+            'concepto'   => ['nullable'],
+            'iva'        => ['required','numeric'],
+            'importe'    => ['required','numeric'],
+        ]);
+
+        $data['username']   = session()->get('username');
+
+
+        $reg = $factlin->update($data);
+
+        if (request()->wantsJson())
+            return [
+                'message' => 'EL registro ha sido modificado'
+            ];
+    }
+
     public function destroy(Factlin $factlin)
     {
 

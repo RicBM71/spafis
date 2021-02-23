@@ -6,7 +6,7 @@
     >
 
         <v-autocomplete
-            class="body-2"
+            class="body-2 caption"
             dense
             v-model="model"
             :items="items"

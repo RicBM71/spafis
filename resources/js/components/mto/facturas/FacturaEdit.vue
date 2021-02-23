@@ -369,7 +369,7 @@ import Pendientes from './Pendientes'
         watch: {
 
             reload: function () {
-                console.log(this.factura.id)
+                
                 axios.get('/facturas/factlins/'+this.factura.id)
                 .then(res => {
                     this.faclins = res.data.lineas;

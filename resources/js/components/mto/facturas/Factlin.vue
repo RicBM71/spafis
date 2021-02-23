@@ -12,7 +12,7 @@
                     <v-icon
                         color="primary"
                         small
-                        @click="editItem(item.id)"
+                        @click="editItem(item)"
                     >
                         mdi-pencil
                     </v-icon>
@@ -54,6 +54,13 @@
             :reload.sync="reload"
         >
     </lines-create>
+     <lines-edit
+            :factura="factura"
+            :editedItem="editedItem"
+            :reload.sync="reload"
+            :dialog_lin_edit.sync="dialog_lin_edit"
+        >
+    </lines-edit>
 </div>
 </template>
 <script>
@@ -61,17 +68,19 @@ import {mapGetters} from 'vuex';
 import moment from 'moment'
 import MyDialog from '@/components/shared/MyDialog'
 import FaclinCreate from './FaclinCreate'
+import FaclinEdit from './FaclinEdit'
 export default {
     props:['factura','faclins','total_factura','reload'],
     components: {
         'my-dialog': MyDialog,
         'lines-create': FaclinCreate,
-        // 'lines-edit': AlbalinEdit
+        'lines-edit': FaclinEdit
 	},
     data () {
         return {
            dialog: false,
            dialog_lin_add: false,
+           dialog_lin_edit: false,
 
             editedIndex: -1,
             editedItem: {id:0},
@@ -119,7 +128,9 @@ export default {
 
     },
     watch: {
-
+        dialog_lin_edit: function () {
+            this.$emit('update:reload', (this.reload + 1));
+        }
     },
     methods:{
         create(){
@@ -127,20 +138,20 @@ export default {
         },
         editItem(item){
 
-            this.editedIndex = this.lineas.indexOf(item)
+            this.editedIndex = this.faclins.indexOf(item)
             this.editedItem = item;
 
-            this.dialog_edt = true
+            this.dialog_lin_edit = true
 
         },
         openDialog (id){
             this.dialog = true;
-            this.lineas_id = id;
+            this.faclins_id = id;
         },
         destroyReg () {
             this.dialog = false;
 
-            axios.post('/facturas/factlins/'+this.lineas_id,{_method: 'delete'})
+            axios.post('/facturas/factlins/'+this.faclins_id,{_method: 'delete'})
                 .then(res => {
                     this.$emit('update:reload', (this.reload + 1));
             })

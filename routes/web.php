@@ -249,7 +249,7 @@ Route::group([
         Route::get('sms/send/{fecha}', [App\Http\Controllers\Tools\SmsController::class, 'index']);
         Route::post('sms/send', [App\Http\Controllers\Tools\SmsController::class, 'send']);
         Route::get('sms/{cita_id}/sendone', [App\Http\Controllers\Tools\SmsController::class, 'sendone']);
-        Route::get('sms/{cita}/cancel', [App\Http\Controllers\Tools\SmsController::class, 'cancel']);
+        Route::get('sms/{cita}/cancel', [App\Http\Controllers\Tools\SmsController::class, 'cancelSMS']);
 
         Route::post('helpcli', [App\Http\Controllers\Tools\HelpPacienteController::class,'index']);
         Route::post('compartir/bono', [App\Http\Controllers\Tools\CompartirBonoController::class,'submit']);

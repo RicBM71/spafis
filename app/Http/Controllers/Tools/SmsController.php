@@ -10,8 +10,8 @@ use App\Http\Controllers\Controller;
 class SmsController extends Controller
 {
 
-    protected $api_key = 'b7a5a919574346a2b67a3a5cb2c18bad';
-    protected $fake = '0';
+    //protected $api_key = 'b7a5a919574346a2b67a3a5cb2c18bad';
+    protected $fake = '1';
 
     public function index($dt){
 
@@ -184,14 +184,14 @@ class SmsController extends Controller
 
     }
 
-    public function cancel(Request $request, Cita $cita){
+    public function cancelSMS(Request $request, Cita $cita){
 
         $ids[] = [
             "id_sms" => $cita->sms_id
         ];
 
         $request = [
-            'api_key'   => $this->api_key,
+            'api_key'   => session('empresa')->sms_api,
             'ids'       => $ids
         ];
 

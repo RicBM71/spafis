@@ -194,7 +194,7 @@ export default {
         items: [
             { icon: 'mdi-contacts', text: 'Pacientes', name: 'paciente.index' },
             { icon: 'mdi-account-tie-outline', text: 'Facultativos', name: 'facultativo.index' },
-            { icon: 'mdi-calendar-lock', text: 'Bloqueos', name: 'bloqueo.index' },
+            { icon: 'mdi-calendar', text: 'Bloqueos', name: 'bloqueo.index' },
             {
             icon: 'mdi-chevron-up',
             'icon-alt': 'mdi-chevron-down',

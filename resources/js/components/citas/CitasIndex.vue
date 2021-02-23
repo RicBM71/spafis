@@ -1,7 +1,7 @@
 <template>
     <v-col cols="12" class="pa-0 ma-0">
         <loading :show_loading="show_loading"></loading>
-        <v-card>
+        <v-card v-show="load_ini">
             <v-card-text>
                 <v-row>
                     <v-col
@@ -11,6 +11,7 @@
                         md="1"
                     >
                         <v-select
+                            class="caption"
                             v-model="area_id"
                             :items="areas"
                             dense
@@ -26,7 +27,7 @@
                         class="pa-0 ma-1"
                     >
                         <v-text-field
-                            class="body-2"
+                            class="body-2 caption"
                             dense
                             outlined
                             clearable
@@ -169,6 +170,7 @@
                         md="1"
                     >
                         <v-select
+                            class="caption"
                             v-model="type"
                             :items="typeOptions"
                             dense
@@ -184,6 +186,7 @@
                         md="1"
                     >
                         <v-select
+                            class="caption"
                             v-model="facultativo_id"
                             :items="facultativos"
                             dense
@@ -199,6 +202,7 @@
                         md="1"
                     >
                         <v-select
+                            class="caption"
                             v-model="activa"
                             :items="activas"
                             dense
@@ -223,6 +227,7 @@
                         >
                             <template v-slot:activator="{ on }">
                             <v-text-field
+                                class="caption"
                                 dense
                                 outlined
                                 v-model="computedFecha"
@@ -476,6 +481,7 @@ import {mapState} from 'vuex'
     	data () {
 
             return {
+                load_ini: false,
                 drawer: false,
                 titulo:"Timing Citas",
                 show_loading: true,
@@ -653,11 +659,9 @@ import {mapState} from 'vuex'
                         this.facultativo_id = this.facultativo;
                     }
 
-                    console.log("mo"+this.facultativo);
-
-
                     this.festivos = res.data.festivos;
 
+                    this.load_ini = true;
                     this.show_loading = false;
                 })
                 .catch(err =>{
