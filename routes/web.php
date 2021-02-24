@@ -164,6 +164,7 @@ Route::group([
         Route::post('cobro/load', [App\Http\Controllers\Citas\CobroCitasController::class, 'load']);
         Route::post('cobro/cobrar', [App\Http\Controllers\Citas\CobroCitasController::class, 'submit']);
         Route::get('recibo/{paciente_id}/{fecha}', [App\Http\Controllers\Citas\CobroCitasController::class, 'recibo']);
+        Route::post('cobro/directo', [App\Http\Controllers\Citas\CobroCitasController::class, 'directo']);
 
         Route::get('cobros', [App\Http\Controllers\Citas\CobroCitasController::class, 'index']);
         Route::post('cobro/cancelar', [App\Http\Controllers\Citas\CobroCitasController::class, 'cancelar']);
@@ -247,6 +248,7 @@ Route::group([
         Route::get('pacientes/export', [App\Http\Controllers\Tools\PacientesExportController::class, 'export']);
 
         Route::get('sms/send/{fecha}', [App\Http\Controllers\Tools\SmsController::class, 'index']);
+
         Route::post('sms/send', [App\Http\Controllers\Tools\SmsController::class, 'send']);
         Route::get('sms/{cita_id}/sendone', [App\Http\Controllers\Tools\SmsController::class, 'sendone']);
         Route::get('sms/{cita}/cancel', [App\Http\Controllers\Tools\SmsController::class, 'cancelSMS']);

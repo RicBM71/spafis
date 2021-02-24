@@ -102,11 +102,11 @@ class FacturasController extends Controller
         $contador = Factura::whereYear('fecha', $data['ejercicio'])
                             ->where('serie', 'M')
                             ->orderBy('factura','desc')
-                            ->first();
-        if ($contador == '')
+                            ->get();
+        if ($contador->count() == 0)
             $factura = 1;
         else
-            $factura = $contador->factura + 1;
+            $factura = $contador->first()->factura + 1;
 
 
 

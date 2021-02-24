@@ -247,7 +247,7 @@ class CobroCitasController extends Controller
         }
 
         if ($data['fpago_id'] == 1){
-            $kk = Caja::where('paciente_id', $data['paciente_id'])
+            $ret = Caja::where('paciente_id', $data['paciente_id'])
                 ->where('fecha', $data['fecha'])
                 ->delete();
         }elseif($data['fpago_id'] == 2){
@@ -291,6 +291,31 @@ class CobroCitasController extends Controller
 
         return view('recibo', compact('empresa','fecha','total', 'paciente'));
 
+
+    }
+
+    public function directo(Request $request){
+
+        if (!hasCobros())
+            return abort(405,'No tienes los permisos necesarios');
+
+        $data = $request->validate([
+            'paciente_id'    => ['required', 'integer'],
+            'importe'        => ['required', 'numeric']
+        ]);
+
+        $p = [
+            'fecha'          => Carbon::today(),
+            'todo'           => true,
+            'paciente_id'    => $data['paciente_id'],
+            'pacientes_id'   => array($data['paciente_id']),
+            'mutua_id'       => null,
+            'importe'        => $data['importe'],
+            'autorizacion'   => null,
+            'fpago_id'       => 1
+        ];
+
+        $this->cobrar($this->getPendientesCobro($p), $p);
 
     }
 }

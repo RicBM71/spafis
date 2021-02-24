@@ -70,16 +70,16 @@ class Factura extends Model
         return $this->serie.$this->factura;
     }
 
-    public function setFacturaAttribute($factura)
-    {
-        $this->attributes['factura'] = ($this->ejercicio - 2000).str_repeat('0', 4-strlen($factura)).$factura;
+    // public function setFacturaAttribute($factura)
+    // {
+    //     $l = strlen($factura);
 
-    }
+    //     $this->attributes['factura'] = ($this->ejercicio - 2000).str_repeat('0', 4-$l).$factura;
+    // }
 
     public function setRazonAttribute($razon)
     {
         $this->attributes['razon'] = strtoupper($razon);
-
     }
 
     public function setDireccionAttribute($direccion)

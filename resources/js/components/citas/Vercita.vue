@@ -295,6 +295,21 @@
                         </template>
                         <span>Cobrar Cita</span>
                     </v-tooltip>
+                    <v-tooltip top v-if="isRoot">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                color="orange darken-1"
+                                icon
+                                v-bind="attrs"
+                                v-on="on"
+                                :disabled="!computedCobrar"
+                                @click="cobrarDirecto"
+                            >
+                                <v-icon>mdi-cash-multiple</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Cobrar todo en efectivo</span>
+                    </v-tooltip>
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
@@ -837,6 +852,26 @@ export default {
         },
         cobrar(){
             this.$emit('update:action_cita', 'C');
+        },
+        cobrarDirecto(){
+            this.$emit('update:show_loading', true);
+            axios.post('/citas/cobro/directo', {
+                paciente_id: this.cita.paciente_id,
+                importe: this.saldo
+            })
+            .then(res => {
+
+                this.$emit('update:reload_id', this.reload_id + 1);
+
+            })
+            .catch(err => {
+                this.$emit('update:show_loading', false);
+                this.$toast.error(err.response.data.message);
+            })
+            .finally(()=>{
+
+            });
+
         },
         anularCobro(){
             this.$emit('update:action_cita', 'CC');
