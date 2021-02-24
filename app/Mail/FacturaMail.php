@@ -35,7 +35,7 @@ class FacturaMail extends Mailable
         $asunto = "Factura ".$this->data['factura']->ser_fac;
 
         return $this->markdown('emails.factura')
-                    ->with('data', $this->data)
+                    ->with(['data'=>$this->data])
                     ->subject($asunto)
                     ->from($this->data['from'],$this->data['nom_ape'])
                     ->attach(storage_path('facturas/'.$file), [

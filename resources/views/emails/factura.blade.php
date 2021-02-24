@@ -1,7 +1,8 @@
 @component('mail::message', ['data' => $data])
 # Documentación adjunta
 
-Adjunto remitimos factura de servicios realizados.
+Hola, {{mb_convert_case($data['factura']['paciente']['nombre'],MB_CASE_TITLE)}} adjunto remitimos factura de servicios realizados. Aprovechamos la ocasión para agradecerte la confianza depositada en nostros.
+Quedamos a tu disposición para aquello que consideres oportuno.
 {{--
 @component('mail::button', ['url' => 'url'])
 View Order
@@ -9,7 +10,7 @@ View Order
 
 {{ $data['msg'] }}
 
-Saludos!<br>
+Muchas gracias y recibe un cordial saludo.<br>
 {{-- {{ config('app.name') }} --}}
 
 @endcomponent

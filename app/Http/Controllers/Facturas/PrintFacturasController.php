@@ -27,8 +27,8 @@ class PrintFacturasController extends Controller
 
         if ($factura->paciente->email=='')
             return response('El paciente no tiene email configurado', 403);
-        // elseif (session('empresa')->email=='')
-        //     return response('Configurar email empresa', 403);
+        elseif (session('empresa')->email=='')
+             return response('Configurar email empresa', 403);
 
         $from = config('mail.from.address');
         //$from = str_replace('info','noreply', $from);
@@ -45,7 +45,7 @@ class PrintFacturasController extends Controller
         ];
 
         // con esto previsualizamos el mail
-        //return new FacturaMail($data);
+        return new FacturaMail($data);
 
         dispatch(new SendFactura($data));
 
