@@ -38,7 +38,7 @@ class PrintFacturasController extends Controller
         $this->print($factura->id, true);
 
         $data = [
-            'nom_ape'=> session('empresa')->nom_ape,
+            'nom_ape'=> session('empresa')->razon,
             'from'=> $from,
             'msg' => null,
             'factura' => $factura

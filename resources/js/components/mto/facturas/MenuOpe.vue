@@ -181,10 +181,8 @@ export default {
         },
         goEmail(){
             this.show_loading = true;
-            axios.put('/ventas/print/'+this.factura.id+'/mail')
+            axios.get('/facturas/mail/'+this.factura.id)
                 .then(res => {
-
-                    this.$emit('update:albaran', res.data.albaran);
                     this.$toast.success('Mail en cola de envío...');
                 })
                 .catch(err => {

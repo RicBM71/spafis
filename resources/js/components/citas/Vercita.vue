@@ -298,7 +298,7 @@
                     <v-tooltip top v-if="isRoot">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
-                                color="orange darken-1"
+                                color="yellow darken-1"
                                 icon
                                 v-bind="attrs"
                                 v-on="on"
@@ -314,7 +314,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                 :disabled="!isSupervisor"
-                                color="organge darken-1"
+                                color="orange darken-1"
                                 icon
                                 v-bind="attrs"
                                 v-on="on"
