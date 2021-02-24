@@ -590,7 +590,7 @@ import {mapState} from 'vuex'
                 isLoading: false,
                 font_size: '12px',
 
-                colores:['orange','green','green','red darken-4'],
+                colores:['orange','blue','green','red darken-4'],
 
                 dialog_cobro: false,
                 dialog_cancel_cobro: false,
@@ -747,16 +747,16 @@ import {mapState} from 'vuex'
             },
             setColorEstado(event){
                 if (event.estado_id == 2)
-                    return (event.bono > 0 && event.importe == 0) ? this.colores[2] : this.colores[3];
+                    return (event.bono > 0 && event.importe == 0) ? this.colores[1] : this.colores[3];
 
                 return this.colores[event.estado_id - 1];
             },
             setIcono(event){
                 if (event.estado_id == 2)
-                    return (event.bono > 0 && event.importe == 0) ? 'mdi-circle-medium' : 'mdi-alert-circle';
+                    return (event.bono > 0 && event.importe == 0) ? 'mdi-check-all' : 'mdi-alert-circle';
 
                 if (event.estado_id == 3)
-                    return 'mdi-circle-medium';
+                    return 'mdi-check-all';
 
 
             },

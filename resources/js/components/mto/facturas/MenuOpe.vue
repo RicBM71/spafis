@@ -13,7 +13,7 @@
                     icon
                     @click="goEmail"
                 >
-                    <v-icon color="primary">mdi-send</v-icon>
+                    <v-icon color="primary">mdi-email-send</v-icon>
                 </v-btn>
             </template>
             <span>Enviar por email</span>

@@ -93,7 +93,7 @@
         <v-tooltip bottom v-if="isSupervisor">
             <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon v-show="sms.sms > 0" @click="goSendSMS">
-                    <v-icon color="yellow darken-2">mdi-email-send</v-icon>
+                    <v-icon color="yellow darken-2">mdi-message-alert-outline</v-icon>
                 </v-btn>
             </template>
             <span>({{sms.sms}}) SMS'S pendientes de envio.</span>
@@ -101,7 +101,7 @@
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon v-show="jobs > 0">
-                    <v-icon color="red darken-4">mdi-bell</v-icon>
+                    <v-icon color="yellow darken-2">mdi-email-alert</v-icon>
                 </v-btn>
             </template>
             <span>({{jobs}}) Mails pendientes de envio.</span>

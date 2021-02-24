@@ -45,7 +45,7 @@ class PrintFacturasController extends Controller
         ];
 
         // con esto previsualizamos el mail
-        return new FacturaMail($data);
+        //return new FacturaMail($data);
 
         dispatch(new SendFactura($data));
 
