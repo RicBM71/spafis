@@ -217,6 +217,7 @@ export default {
             model: false,
             children: [
                 { icon: 'mdi-plus', text: 'Cobros Año/Mes', name: 'cobrosmes.index' },
+                { icon: 'mdi-plus', text: 'Comparativo Mes', name: 'comparativo.index' },
             ],
             },
             {

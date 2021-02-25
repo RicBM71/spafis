@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Consultas;
 use Carbon\Carbon;
 use App\Models\Area;
 use Illuminate\Http\Request;
+use App\Exports\CobrosMesExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CobrosMesController extends Controller
 {
@@ -27,6 +29,11 @@ class CobrosMesController extends Controller
             'fecha'     => ['required','date'],
             'area_id'   => ['required','integer'],
         ]);
+
+        return $this->procesar($data);
+    }
+
+    private function procesar($data){
 
         $ejercicio = getEjercicio($data['fecha']);
 
@@ -129,6 +136,19 @@ class CobrosMesController extends Controller
 
 
         return $valores;
+
+    }
+
+    public function excel(Request $request){
+
+        $data = $request->validate([
+            'fecha'     => ['required','date'],
+            'area_id'   => ['required','integer'],
+        ]);
+
+        $datos = $this->procesar($data);
+
+        return Excel::download(new CobrosMesExport($datos), 'report.xlsx');
 
     }
 

@@ -28,6 +28,7 @@ class CreateCobrosTable extends Migration
             $table->timestamps();
             $table->index(['empresa_id', 'id']);
             $table->index(['empresa_id', 'cita_id']);
+            $table->index(['empresa_id', 'area_id', 'fecha']);
         });
     }
 

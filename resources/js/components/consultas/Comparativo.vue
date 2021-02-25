@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div ref="div">
         <loading :show_loading="loading"></loading>
         <v-card>
             <v-card-title color="indigo">
@@ -56,7 +56,7 @@
 
                             >
                                 <v-menu
-                                    v-model="menu1"
+                                    v-model="menud"
                                     :close-on-content-click="false"
                                     :nudge-top="40"
                                     transition="scale-transition"
@@ -65,22 +65,55 @@
                                 >
                                     <template v-slot:activator="{ on }">
                                     <v-text-field
-                                        v-model="computedFecha"
+                                        v-model="computedFechaD"
                                         label="Fecha"
                                         prepend-icon="mdi-calendar"
                                         readonly
-                                        data-vv-name="fecha"
-                                        :error-messages="errors.collect('fecha')"
+                                        data-vv-name="fechad"
+                                        :error-messages="errors.collect('fechad')"
                                         data-vv-as="Fecha"
                                         v-on="on"
                                     ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                        v-model="data.fecha"
+                                        v-model="data.fechad"
                                         no-title
                                         locale="es"
                                         first-day-of-week=1
-                                        @input="menu1 = false">
+                                        @input="menud = false">
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+                             <v-col
+                                cols="2"
+
+                            >
+                                <v-menu
+                                    v-model="menuh"
+                                    :close-on-content-click="false"
+                                    :nudge-top="40"
+                                    transition="scale-transition"
+                                    offset-x
+                                    min-width="290px"
+                                >
+                                    <template v-slot:activator="{ on }">
+                                    <v-text-field
+                                        v-model="computedFechaH"
+                                        label="Fecha"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        data-vv-name="fechah"
+                                        :error-messages="errors.collect('fechah')"
+                                        data-vv-as="Fecha"
+                                        v-on="on"
+                                    ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="data.fechah"
+                                        no-title
+                                        locale="es"
+                                        first-day-of-week=1
+                                        @input="menuh = false">
                                     </v-date-picker>
                                 </v-menu>
                             </v-col>
@@ -99,22 +132,13 @@
                                     <thead>
                                         <tr>
                                             <th class="text-left">
-                                                Mes
+                                                Tratamiento
                                             </th>
                                             <th class="text-center">
-                                                Ejercicio {{ejercicios[0]}}
+                                                Ej. Actual
                                             </th>
                                             <th class="text-center">
-                                                Ejercicio {{ejercicios[1]}}
-                                            </th>
-                                            <th class="text-center">
-                                                Dif. Abs.
-                                            </th>
-                                            <th class="text-center">
-                                                %
-                                            </th>
-                                            <th class="text-center">
-                                                Ejercicio {{ejercicios[2]}}
+                                                Ej. Anterior
                                             </th>
                                             <th class="text-center">
                                                 Dif. Abs.
@@ -123,7 +147,10 @@
                                                 %
                                             </th>
                                             <th class="text-center">
-                                                Ejercicio {{ejercicios[3]}}
+                                                Valores
+                                            </th>
+                                            <th class="text-center">
+                                                Valores AA
                                             </th>
                                             <th class="text-center">
                                                 Dif. Abs.
@@ -131,6 +158,7 @@
                                             <th class="text-center">
                                                 %
                                             </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -138,17 +166,126 @@
                                             v-for="item in items"
                                             :key="item.mes"
                                         >
-                                            <td class="text-left">{{item.mes}}</td>
-                                            <td class="text-right">{{ getCurrencyFormat(item.eje1) }}</td>
-                                            <td class="text-right">{{ getCurrencyFormat(item.eje2) }}</td>
-                                            <td :class="clase(item.dif1_2)">{{ getCurrencyFormat(item.dif1_2) }}</td>
-                                            <td :class="clase(item.por1_2)">{{ getPorcentaje(item.por1_2) }}</td>
-                                            <td class="text-right">{{ getCurrencyFormat(item.eje3) }}</td>
-                                            <td :class="clase(item.dif1_3)">{{ getCurrencyFormat(item.dif1_3) }}</td>
-                                            <td :class="clase(item.por1_3)">{{ getPorcentaje(item.por1_3) }}</td>
-                                            <td class="text-right">{{ getCurrencyFormat(item.eje4) }}</td>
-                                            <td :class="clase(item.dif1_4)">{{ getCurrencyFormat(item.dif1_4) }}</td>
-                                            <td :class="clase(item.por1_4)">{{ getPorcentaje(item.por1_4) }}</td>
+                                            <td class="text-left">{{item.tratamiento}}</td>
+                                            <td class="text-right">{{ getDecimal(item.p1,0) }}</td>
+                                            <td class="text-right">{{ getDecimal(item.p2,0) }}</td>
+                                            <td :class="clase(item.difabs)">{{ getDecimal(item.difabs,0) }}</td>
+                                            <td :class="clase(item.difrel)">{{ getPorcentaje(item.difrel) }}</td>
+                                            <td class="text-right">{{ getCurrencyFormat(item.i1) }}</td>
+                                            <td class="text-right">{{ getCurrencyFormat(item.i2) }}</td>
+                                            <td :class="clase(item.idifabs)">{{ getCurrencyFormat(item.idifabs) }}</td>
+                                            <td :class="clase(item.idifrel)">{{ getPorcentaje(item.idifrel) }}</td>
+                                        </tr>
+                                    </tbody>
+                                    </template>
+                                </v-simple-table>
+                            </v-col>
+                        </v-row>
+                         <v-row v-if="items.length > 0">
+                            <v-col cols="4">
+                                <v-simple-table dense>
+                                    <template v-slot:default>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-center">
+                                                Nuevos Actual
+                                            </th>
+                                            <th class="text-center">
+                                                Nuevos A/A
+                                            </th>
+                                            <th class="text-center">
+                                                Tratados Act.
+                                            </th>
+                                            <th class="text-center">
+                                                Tratados A/A
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-weight-bold">Pacientes</td>
+                                            <td class="text-center">{{pacientes.act}}</td>
+                                            <td class="text-center">{{pacientes.ant}}</td>
+                                            <td class="text-center">{{pacientes.uni_act}}</td>
+                                            <td class="text-center">{{pacientes.uni_ant}}</td>
+                                        </tr>
+                                    </tbody>
+                                    </template>
+                                </v-simple-table>
+                            </v-col>
+                            <v-col cols="3">
+                                <v-simple-table dense>
+                                    <template v-slot:default>
+                                    <thead>
+                                        <tr>
+                                            <th>Facultativo</th>
+                                            <th class="text-center">
+                                                Sesiones
+                                            </th>
+                                            <th class="text-center">
+                                                Importe
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="item in trafis"
+                                            :key="item.alias"
+                                        >
+                                            <td class="font-weight-bold">{{item.alias}}</td>
+                                            <td class="text-right">{{ getDecimal(item.sesiones,0) }}</td>
+                                            <td class="text-right">{{ getCurrencyFormat(item.importe) }}</td>
+                                        </tr>
+                                    </tbody>
+                                    </template>
+                                </v-simple-table>
+                            </v-col>
+                            <v-col cols="2">
+                                <v-simple-table dense>
+                                    <template v-slot:default>
+                                    <thead>
+                                        <tr>
+                                            <th>F. Pago</th>
+                                            <th class="text-center">
+                                                Importe
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="item in cobros"
+                                            :key="item.nombre"
+                                        >
+                                            <td class="font-weight-bold">{{item.nombre}}</td>
+                                            <td class="text-right">{{ getCurrencyFormat(item.importe) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-bold">TOTAL</td>
+                                            <td class="text-right">{{ getCurrencyFormat(total_cobrado) }}</td>
+                                        </tr>
+                                    </tbody>
+                                    </template>
+                                </v-simple-table>
+                            </v-col>
+                            <v-col cols="2">
+                                <v-simple-table dense>
+                                    <template v-slot:default>
+                                    <thead>
+                                        <tr>
+                                            <th>Medio</th>
+                                            <th class="text-center">
+                                                Pacientes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="item in medios"
+                                            :key="item.nombre"
+                                        >
+                                            <td class="font-weight-bold">{{item.nombre}}</td>
+                                            <td class="text-right">{{ getDecimal(item.pacientes,0) }}</td>
                                         </tr>
                                     </tbody>
                                     </template>
@@ -174,20 +311,24 @@ import {mapGetters} from 'vuex';
 		},
     	data () {
       		return {
-                titulo:"Cobros x Mes",
+                titulo:"Comparativo",
                 data: {
                     area_id:1,
-                    fecha: new Date().toISOString().substr(0, 10),
+                    fechad: new Date().toISOString().substr(0, 8)+"01",
+                    fechah: new Date().toISOString().substr(0, 10),
                 },
-                menu1: false,
-                url: "/consultas/cobrosmes",
+                menud: false,
+                menuh: false,
+                url: "/consultas/comparativo",
                 loading: false,
 
                 areas:[],
                 items:[],
-                ejercicios:[],
-
-        items:[],
+                trafis:[],
+                cobros:[],
+                pacientes:{},
+                medios:[],
+                total_cobrado: 0,
   		}
         },
         mounted(){
@@ -220,9 +361,13 @@ import {mapGetters} from 'vuex';
             ...mapGetters([
                 'isAdmin',
             ]),
-            computedFecha() {
+            computedFechaD() {
                 moment.locale('es');
-                return this.data.fecha ? moment(this.data.fecha).format('L') : '';
+                return this.data.fechad ? moment(this.data.fechad).format('L') : '';
+            },
+            computedFechaH() {
+                moment.locale('es');
+                return this.data.fechah ? moment(this.data.fechah).format('L') : '';
             },
         },
     	methods:{
@@ -231,6 +376,9 @@ import {mapGetters} from 'vuex';
             },
             clase(item){
                 return item >= 0 ? 'text-right blue--text' : 'text-right red--text';
+            },
+            getDecimal(value, dec=2){
+                return new Intl.NumberFormat("de-DE",{style: "decimal", minimumFractionDigits:dec}).format(parseFloat(value))
             },
             getCurrencyFormat(value){
                 return new Intl.NumberFormat("de-DE",{style: "currency", currency: "EUR",minimumFractionDigits:2}).format(parseFloat(value))
@@ -248,8 +396,15 @@ import {mapGetters} from 'vuex';
                             axios.post(this.url, this.data)
                                 .then(res => {
 
-                                    this.ejercicios = res.data.ejercicios;
+                                    console.log(res);
+
                                     this.items = res.data.items;
+                                    this.pacientes = res.data.pacientes;
+                                    this.trafis = res.data.trafis;
+                                    this.cobros = res.data.cobros;
+                                    this.medios = res.data.pacientes_medio;
+
+                                    this.total_cobrado = res.data.total_cobrado;
 
                                     this.loading = false;
                                     //this.$router.push({ name: this.ruta+'.edit', params: { id: response.data.paciente.id } })
@@ -283,11 +438,12 @@ import {mapGetters} from 'vuex';
                 this.show_loading = true;
 
                 axios({
-                    url: "/consultas/cobrosmes/excel",
+                    url: this.url+"/excel",
                     method: 'POST',
                     responseType: 'blob', // important
                     data:{  area_id: this.data.area_id,
-                            fecha: this.data.fecha
+                            fechad: this.data.fechad,
+                            fechah: this.data.fechah
                          }
                     })
                 .then(response => {

@@ -211,6 +211,11 @@ Route::group([
     function (){
         Route::get('cobrosmes', [App\Http\Controllers\Consultas\CobrosMesController::class, 'index']);
         Route::post('cobrosmes', [App\Http\Controllers\Consultas\CobrosMesController::class, 'submit']);
+        Route::post('cobrosmes/excel', [App\Http\Controllers\Consultas\CobrosMesController::class, 'excel']);
+
+        Route::get('comparativo', [App\Http\Controllers\Consultas\ComparativoController::class, 'index']);
+        Route::post('comparativo', [App\Http\Controllers\Consultas\ComparativoController::class, 'submit']);
+        Route::post('comparativo/excel', [App\Http\Controllers\Consultas\ComparativoController::class, 'excel']);
     }
 );
 

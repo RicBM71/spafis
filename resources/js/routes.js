@@ -63,7 +63,6 @@ import HistoriaCreate from './components/pacientes/historias/HistoriaCreate.vue'
 import PacbonoEdit from './components/pacientes/pacbono/PacbonoEdit.vue';
 import PacbonoCreate from './components/pacientes/pacbono/PacbonoCreate.vue';
 
-
 import FestivoIndex from './components/mto/festivos/FestivoIndex.vue';
 import FestivoCreate from './components/mto/festivos/FestivoCreate.vue';
 import FestivoEdit from './components/mto/festivos/FestivoEdit.vue';
@@ -83,6 +82,7 @@ import FacturaEdit from './components/mto/facturas/FacturaEdit.vue';
 import Facturacion from './components/procesos/Facturacion.vue';
 
 import CobrosMes from './components/consultas/CobrosMes.vue';
+import Comparativo from './components/consultas/Comparativo.vue';
 
 import ParametroEdit from './components/admin/parametros/ParametroEdit.vue';
 
@@ -453,6 +453,11 @@ export default [
                 path: '/cobrosmes',
                 name: 'cobrosmes.index',
                 component: CobrosMes,
+            },
+            {
+                path: '/comparativo',
+                name: 'comparativo.index',
+                component: Comparativo,
             },
 
             // {
