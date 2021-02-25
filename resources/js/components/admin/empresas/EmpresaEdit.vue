@@ -354,7 +354,7 @@
                                     >
                                         <v-text-field
                                             v-model="empresa.disco"
-                                            v-validate="'required|alpha'"
+                                            v-validate="'required'"
                                             :error-messages="errors.collect('disco')"                                            d
                                             label="Disco Adjuntos"
                                             data-vv-name="disco"
