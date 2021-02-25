@@ -30,7 +30,7 @@ class AdjuntosSeeder extends Seeder
 
                 'paciente_id'   => $row->paciente,
                 'descripcion'   => $row->nombre,
-                'path'          => '/storage/docs/sanaval/'.$row->fichero,
+                'path'          => '/storage/docs/disco0/'.$row->fichero,
                 'leido'         => true,
                 'created_at'    => $row->fecha.' 00:00:00',
                 'updated_at'    => $row->sysfum.' '.$row->syshum,
