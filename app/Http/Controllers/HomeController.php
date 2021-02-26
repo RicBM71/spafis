@@ -139,7 +139,7 @@ class HomeController extends Controller
 
     private function asignarObjetivo($facultativo_id){
 
-        if ($facultativo_id != null) return 0;
+        if ($facultativo_id == null) return 0;
 
 
         $f = Facultativo::find($facultativo_id)->get();
