@@ -63,6 +63,7 @@ class PrintCitasController extends Controller
         $citas = Cita::with(['tratamiento','facultativo','paciente'])
                         ->where('area_id', $data['area_id'])
                         ->whereDate('fecha', $data['fecha'])
+                        ->where('estado_id', '<>', '4')
                         ->facultativo($data['facultativo_id'])
                         ->orderBy('facultativo_id')
                         ->orderBy('hora')
@@ -211,11 +212,11 @@ class PrintCitasController extends Controller
 
             PDF::SetTextColor(240,0,0);
             PDF::MultiCell($w=18, $maxh, $embarazada, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
-            PDF::MultiCell($w=60, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=50, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             PDF::SetTextColor(0,0,0);
 
             //PDF::writeHTML($ultimas, true, false, true, false, '');
-            PDF::MultiCell($w=28, $maxh, $ultimas, $border='T', $align='L', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=true, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=38, $maxh, $ultimas, $border='T', $align='L', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=true, $autopadding=true, $maxh,'M');
 
 
             if (strlen($antecedentes) > 40){
@@ -281,6 +282,10 @@ class PrintCitasController extends Controller
                         ->get()
                         ->take(5);
 
+        if ($cita->paciente_id == 2175){
+            $i=0;
+        }
+
 
         if ($ultimas == '') return '';
 
@@ -292,12 +297,16 @@ class PrintCitasController extends Controller
 
             $dt = Carbon::parse($row->fecha);
 
-            if ($row->estado_id == 4)
-                $str.='<span style="color: red;">(A) </span>';
+            if ($row->estado_id == 4){
+                $dif = $dt->diffInDays($today);
+                if ($dif == 0) continue;
+                //$str.='<span style="color: red;">(A) </span>';
+                $str.='<span style="color: red;">(*A*'.$dif.'d) </span>';
+            }
             else{
                 $dif = $dt->diffInDays($today);
                 if ($dif == 0) continue;
-                $str.='<span style="color: blue;">('.$dif.'D) </span>';
+                $str.='<span style="color: blue;">('.$dif.'d) </span>';
             }
 
             $today = $dt;
