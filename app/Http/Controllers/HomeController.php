@@ -86,6 +86,11 @@ class HomeController extends Controller
 
         $titulo = App::environment('local') ? 'DESARROLLO' : $empresa->titulo;
 
+        $ses = $this->asignarObjetivo($authUser->facultativo_id);
+
+        // quito restricción
+        $facultativo_id = esSupervisor() ? null : $authUser->facultativo_id;
+
         $user = [
             'id'            => $authUser->id,
             'name'          => $authUser->name,
@@ -98,7 +103,7 @@ class HomeController extends Controller
             'empresas'      => $empresas,
             'parametros'    =>$parametros,
             'img_fondo'     => $empresa->img_fondo,
-            'facultativo_id'=> $authUser->facultativo_id
+            'facultativo_id'=> $facultativo_id
         ];
 
        // de momento no quito filtros, ya veremos.
@@ -107,10 +112,7 @@ class HomeController extends Controller
         $jobs  = DB::table('jobs')->count();
 
 
-        $ses = $this->asignarObjetivo($authUser->facultativo_id);
 
-        // quito restricción
-        $facultativo_id = esSupervisor() ? null : $authUser->facultativo_id;
 
         session([
             'empresa_id'       => $empresa_id,

@@ -504,6 +504,8 @@
                         this.emp_user = res.data.emp_user;
                         this.facultativos = res.data.facultativos;
 
+                         this.facultativos.push({value: null, text: '---'});
+
                         this.showPer=true;
                         this.show_loading = false;
 
