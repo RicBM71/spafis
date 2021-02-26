@@ -79,7 +79,7 @@
         dense
         :clipped-left="$vuetify.breakpoint.lgAndUp"
         app
-        color="blue darken-3"
+        :color="bar_color"
         dark
         >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -87,7 +87,7 @@
             style="width: 300px"
             class="ml-0 pl-4"
         >
-            <span class="hidden-sm-and-down">Sanaval</span>
+            <span class="hidden-sm-and-down">{{this.user.empresa_nombre}}</span>
         </v-toolbar-title>
         <v-spacer />
         <v-tooltip bottom v-if="isSupervisor">
@@ -190,6 +190,7 @@ export default {
         jobs: 0,
         sms: {sms: 0, fecha: null},
         show_loading:  false,
+        bar_color: 'blue darken-3',
 
         items: [
             { icon: 'mdi-contacts', text: 'Pacientes', name: 'paciente.index' },
@@ -261,10 +262,14 @@ export default {
         axios.get('/dash')
                 .then(res => {
 
+                    console.log(res);
+
                     this.setAuthUser(res.data.user);
 
                     this.items.push(this.mn_root);
 
+                    if (res.data.user.empresa_nombre.substr(0,5) == 'DESAR')
+                        this.bar_color = 'black;'
 
 
                     this.empresa_id = this.user.empresa_id;

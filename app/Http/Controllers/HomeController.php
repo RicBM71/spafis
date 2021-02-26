@@ -12,6 +12,7 @@ use App\Models\Parametro;
 use App\Models\Facultativo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -83,13 +84,15 @@ class HomeController extends Controller
 
         $empresa = Empresa::findOrFail($empresa_id);
 
+        $titulo = App::environment('local') ? 'DESARROLLO' : $empresa->titulo;
+
         $user = [
             'id'            => $authUser->id,
             'name'          => $authUser->name,
             'username'      => $authUser->username,
             'avatar'        => $authUser->avatar,
             'empresa_id'    => $empresa_id,
-            'empresa_nombre'=>$empresa->titulo,
+            'empresa_nombre'=> $titulo,
             'roles'         => $role_user,
             'permisos'      => $permisos_user,
             'empresas'      => $empresas,
@@ -103,6 +106,10 @@ class HomeController extends Controller
 
         $jobs  = DB::table('jobs')->count();
 
+
+        $ses = $this->asignarObjetivo($authUser->facultativo_id);
+
+        // quito restricción
         $facultativo_id = esSupervisor() ? null : $authUser->facultativo_id;
 
         session([
@@ -118,7 +125,24 @@ class HomeController extends Controller
 
         $this->asignarBonos();
 
-        $f = Facultativo::find($authUser->facultativo_id)->get();
+
+        if (request()->wantsJson())
+            return [
+                'sesiones'  => $ses,
+                'user'      => $user,
+                'expired'   => $this->verificarExpired($request),
+                'authuser'  => $authUser,
+                'jobs'      => $jobs,
+                'sms'       => $sms,
+            ];
+    }
+
+    private function asignarObjetivo($facultativo_id){
+
+        if ($facultativo_id != null) return 0;
+
+
+        $f = Facultativo::find($facultativo_id)->get();
 
         if ($f->count() > 0){
 
@@ -139,18 +163,13 @@ class HomeController extends Controller
             $ses = 0;
         }
 
-        if (request()->wantsJson())
-            return [
-                'sesiones'  => $ses,
-                'user'      => $user,
-                'expired'   => $this->verificarExpired($request),
-                'authuser'  => $authUser,
-                'jobs'      => $jobs,
-                'sms'       => $sms,
-            ];
+        return $ses;
+
     }
 
     private function checkSms(){
+
+        if (App::environment('local')) return false;
         // establecer el primer hábil siguiente a la fecha de hoy
 
         $dt = Carbon::today();
