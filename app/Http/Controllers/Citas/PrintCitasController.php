@@ -112,7 +112,8 @@ class PrintCitasController extends Controller
         PDF::SetFont('helvetica', 'R', 7, '', false);
         PDF::SetTextColor(0,0,0);
 
-        PDF::SetFillColor(152, 255, 28);
+        //PDF::SetFillColor(152, 255, 28);
+        PDF::SetFillColor(180,255,110);
 
         $fis_ant = null;
 
@@ -121,6 +122,7 @@ class PrintCitasController extends Controller
             if ($fis_ant != $cita->facultativo_id){
                 $fis_ant = $cita->facultativo_id;
                 PDF::SetTextColor(24,0,200);
+                //PDF::SetTextColor(205,255,134);
                 PDF::SetFont('helvetica', 'B', 9, '', false);
                 PDF::MultiCell($w=198, 7, trim($cita->facultativo->nombre), $border='TB', $align='C', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, 7,'M');
                 PDF::SetFont('helvetica', 'R', 7, '', false);
@@ -177,7 +179,8 @@ class PrintCitasController extends Controller
             $maxh = 4;
             $next='';
             if ($next_cita != ''){
-                $next = 'Cita: '.substr(getFecha($next_cita->fecha),0,5);
+                $f = Carbon::parse($next_cita->fecha)->isoFormat('ddd D/MM');
+                $next = 'Cita: '.$f;
             }
 
             $bono = Pacbono::getSesionesBono($cita->paciente_id, $cita->bono);
@@ -199,7 +202,7 @@ class PrintCitasController extends Controller
                 PDF::MultiCell($w=40, $maxh, $cita->paciente->ape, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             }
 
-            PDF::MultiCell($w=14, $maxh, $next, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=34, $maxh, $next, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             $bono_txt = '';
             if ($bono['numero_bono'] > 0){
                 $bono_txt = 'Bono: +'.$bono['resto'];//.'/'.$bono['sesiones'];
@@ -208,7 +211,7 @@ class PrintCitasController extends Controller
 
             PDF::SetTextColor(240,0,0);
             PDF::MultiCell($w=18, $maxh, $embarazada, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
-            PDF::MultiCell($w=70, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=60, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             PDF::SetTextColor(0,0,0);
 
             //PDF::writeHTML($ultimas, true, false, true, false, '');
@@ -362,7 +365,7 @@ class PrintCitasController extends Controller
         //PDF::SetFooterMargin(34);
 
         // set auto page breaks
-        PDF::SetAutoPageBreak(TRUE, 34);
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
 
         // set image scale factor
         PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
