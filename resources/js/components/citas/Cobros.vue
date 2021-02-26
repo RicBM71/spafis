@@ -422,8 +422,8 @@ export default {
                     }
                     )
                 .then(res => {
-
                     if (res.status == 200){
+                        this.autorizacion = res.data.recibo.codigo_respuesta;
                         clearInterval(this.check_bbdd);
                         this.submit();
                     }
