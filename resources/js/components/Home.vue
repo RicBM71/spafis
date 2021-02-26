@@ -262,8 +262,6 @@ export default {
         axios.get('/dash')
                 .then(res => {
 
-                    console.log(res);
-
                     this.setAuthUser(res.data.user);
 
                     this.items.push(this.mn_root);

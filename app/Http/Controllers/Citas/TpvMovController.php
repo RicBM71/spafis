@@ -22,7 +22,7 @@ class TpvMovController extends Controller
                           ->first();
 
         if ($recibo == null)
-            return abort(404, 'No hay nada que procesar');
+            return abort(202, 'No hay nada que procesar');
 
         if ($recibo->importe != $data['importe'])
             return abort(411, 'Importes sin procesar '.$recibo->importe.' difiere de '.$data['importe']);

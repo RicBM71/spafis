@@ -423,17 +423,17 @@ export default {
                     )
                 .then(res => {
 
-
-                    clearInterval(this.check_bbdd);
-
-                    this.submit();
+                    if (res.status == 200){
+                        clearInterval(this.check_bbdd);
+                        this.submit();
+                    }
                 })
                 .catch(err => {
+                    console.log(err);
                     if (err.request.status == 411){
                         clearInterval(this.check_bbdd);
                         this.$toast.error(err.response.data.message);
                     }
-                    console.log(err);
                 });
         },
         loadPendientes(){
