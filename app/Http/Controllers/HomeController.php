@@ -103,12 +103,12 @@ class HomeController extends Controller
 
         $jobs  = DB::table('jobs')->count();
 
-
+        $facultativo_id = esSupervisor() ? null : $authUser->facultativo_id;
 
         session([
             'empresa_id'       => $empresa_id,
             'empresa'          => Empresa::find($empresa_id),
-            'facultativo_id'   => $authUser->facultativo_id,
+            'facultativo_id'   => $facultativo_id,
             'username'         => $authUser->username,
             'empresas_usuario' => $empresas_usuario,
             'parametros'       => $parametros,
@@ -118,7 +118,7 @@ class HomeController extends Controller
 
         $this->asignarBonos();
 
-        $f = Facultativo::where('objetivo','>',0)->get();
+        $f = Facultativo::find($authUser->facultativo_id)->get();
 
         if ($f->count() > 0){
 
