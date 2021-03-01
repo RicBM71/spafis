@@ -11,7 +11,7 @@ class SmsController extends Controller
 {
 
     //protected $api_key = 'b7a5a919574346a2b67a3a5cb2c18bad';
-    protected $fake = '1';
+    protected $fake = '0';
 
     public function index($dt){
 
