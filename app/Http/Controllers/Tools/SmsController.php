@@ -11,7 +11,7 @@ class SmsController extends Controller
 {
 
     //protected $api_key = 'b7a5a919574346a2b67a3a5cb2c18bad';
-    protected $fake = '0';
+    protected $fake = '1';
 
     public function index($dt){
 
@@ -128,7 +128,7 @@ class SmsController extends Controller
         $msg = str_replace('%n', mb_convert_case(trim($cita->nombre),MB_CASE_TITLE), $msg);
         $msg = str_replace('%f', $fecha, $msg);
 
-        $hora_envio = $programado ? ($dt->hour < 15) ?  $dt->subDay()->format('Y-m-d').' '.session('empresa')->sms_am : $dt->format('Y-m-d').' '.session('empresa')->sms_pm
+        $hora_envio = $programado ? ($dt->hour < 15) ?  $dt->subDay()->format('Y-m-d').' '.session('empresa')->sms_pm : $dt->format('Y-m-d').' '.session('empresa')->sms_am
                                     : null;
 
         return [
