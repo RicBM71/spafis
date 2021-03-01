@@ -264,6 +264,12 @@ class Paciente extends Model
 
     }
 
+    public function setTextotf2Attribute($texto_tf2)
+    {
+        $this->attributes['texto_tf2'] = strtoupper($texto_tf2);
+
+    }
+
     public function setApellidosAttribute($apellidos)
     {
         $this->attributes['apellidos'] = strtoupper($apellidos);

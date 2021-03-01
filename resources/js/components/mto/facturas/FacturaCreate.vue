@@ -127,6 +127,9 @@ import Loading from '@/components/shared/Loading'
 
 
         },
+        created: function () {
+            this.debouncedGetAnswer = _.debounce(this.getPacientes, 1000)
+        },
         computed: {
             ...mapGetters([
                     'isAdmin'
@@ -137,7 +140,13 @@ import Loading from '@/components/shared/Loading'
             },
         },
         watch: {
-            search (val) {
+            search: function (newQuestion, oldQuestion) {
+              this.debouncedGetAnswer()
+            },
+
+        },
+    	methods:{
+            getPacientes(val) {
 
                 if (this.search == null || this.search.length <= 4) return;
 
@@ -167,8 +176,6 @@ import Loading from '@/components/shared/Loading'
 
 
             },
-        },
-    	methods:{
             clearRec(){
                 this.factura.paciente_id = null;
                 this.pacientes = [];
@@ -182,7 +189,7 @@ import Loading from '@/components/shared/Loading'
                             .then(response => {
 
                               //  this.$toast.success(response.data.message);
-                                console.log(response);
+                              //  console.log(response);
                                 this.loading = false;
                                 this.$router.push({ name: this.ruta+'.edit', params: { id: response.data.factura.id } })
                             })

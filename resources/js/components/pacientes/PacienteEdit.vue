@@ -98,7 +98,7 @@
                                         cols="12"
                                         md="2"
                                     >
-                                    <v-menu
+                                    <!-- <v-menu
                                         ref="menu"
                                         v-model="menu"
                                         :close-on-content-click="false"
@@ -124,8 +124,8 @@
                                                 min="1900-01-01"
                                                 @change="save"
                                             ></v-date-picker>
-                                    </v-menu>
-                                        <!-- <v-text-field
+                                    </v-menu> -->
+                                        <v-text-field
                                             v-model="computedFechaNac"
                                             mask="##/##/####"
                                             clearable
@@ -134,7 +134,7 @@
                                             label="F. Nacimiento"
                                             data-vv-name="fecha_nac"
                                             v-on:keyup.enter="submit"                                    >
-                                        </v-text-field> -->
+                                        </v-text-field>
                                     </v-col>
                                     <v-col
                                         cols="12"
@@ -262,22 +262,6 @@
                                 <v-row v-show="hasContact">
                                     <v-col
                                         cols="12"
-                                        md="2"
-                                    >
-                                        <v-text-field
-                                            v-model="paciente.contacto"
-                                            v-validate="'max:50'"
-                                            :error-messages="errors.collect('contacto')"
-                                            label="Contacto"
-                                            data-vv-name="contacto"
-                                            data-vv-as="contacto"
-                                            v-on:keyup.enter="submit"
-                                            required
-                                        >
-                                        </v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
                                         md="1"
                                     >
                                         <v-text-field
@@ -305,6 +289,22 @@
                                             data-vv-as="telefono1"
                                             v-on:keyup.enter="submit"
 
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        md="2"
+                                    >
+                                        <v-text-field
+                                            v-model="paciente.texto_tf2"
+                                            v-validate="'max:50'"
+                                            :error-messages="errors.collect('texto_tf2')"
+                                            label="Contacto"
+                                            data-vv-name="texto_tf2"
+                                            data-vv-as="contacto"
+                                            v-on:keyup.enter="submit"
+                                            required
                                         >
                                         </v-text-field>
                                     </v-col>
@@ -881,15 +881,19 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
             }
 
         },
+        created: function () {
+            this.debouncedGetAnswer = _.debounce(this.getPacientes, 1000)
+        },
         watch: {
             menu (val) {
                 val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
             },
-            // model (val) {
-            //     if (val != null) this.tab = 0
-            //     else this.tab = null
-            // },
-            search (val) {
+            search: function (newQuestion, oldQuestion) {
+                this.debouncedGetAnswer()
+            },
+        },
+    	methods:{
+            getPacientes (val) {
                 //console.log(val);
                 //this.recomendados = [];
                 // Items have already been loaded
@@ -923,8 +927,6 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 
             },
-        },
-    	methods:{
             save (date) {
                 this.$refs.menu.save(date)
             },

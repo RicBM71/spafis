@@ -120,6 +120,7 @@
                                 data-vv-name="cif"
                                 data-vv-as="cif"
                                 label="CIF"
+                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
                         </v-col>
@@ -131,6 +132,7 @@
                                 :error-messages="errors.collect('razon')"
                                 data-vv-name="razon"
                                 data-vv-as="razon"
+                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
                         </v-col>
@@ -161,6 +163,7 @@
                                 :error-messages="errors.collect('direccion')"
                                 data-vv-name="direccion"
                                 data-vv-as="direccion"
+                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
                         </v-col>
@@ -173,6 +176,7 @@
                                 data-vv-name="cpostal"
                                 data-vv-as="cpostal"
                                 label="CP"
+                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
                         </v-col>
@@ -185,6 +189,7 @@
                                 data-vv-name="poblacion"
                                 data-vv-as="poblacion"
                                 label="Población"
+                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
                         </v-col>
@@ -197,6 +202,7 @@
                                 data-vv-name="provincia"
                                 data-vv-as="provincia"
                                 label="Provincia"
+                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
                         </v-col>
@@ -300,7 +306,6 @@ import Pendientes from './Pendientes'
                 axios.get(this.url+'/'+id+'/edit')
                     .then(res => {
                         this.factura = res.data.factura;
-                        console.log(res.data);
 
                         this.fpagos = res.data.fpagos;
                         this.cuentas = res.data.cuentas;
@@ -369,7 +374,7 @@ import Pendientes from './Pendientes'
         watch: {
 
             reload: function () {
-                
+
                 axios.get('/facturas/factlins/'+this.factura.id)
                 .then(res => {
                     this.faclins = res.data.lineas;

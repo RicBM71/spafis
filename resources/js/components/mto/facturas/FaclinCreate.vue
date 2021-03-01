@@ -90,7 +90,7 @@
     },
     methods:{
         closeDialog (){
-            this.$emit('update:create_lin', false)
+            this.$emit('update:dialog_lin_add', false)
         },
         submit() {
             if (this.loading === false){
