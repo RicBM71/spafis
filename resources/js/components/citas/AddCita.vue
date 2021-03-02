@@ -357,7 +357,7 @@ export default {
             //this.$emit('update:cita.paciente_id', null);
             this.$emit('update:action_cita', 'V');
         },
-        huecos(){
+        loadHoras(){
 
             axios.post('/tools/citas/huecos', {
                     facultativo_id : this.cita.facultativo_id,

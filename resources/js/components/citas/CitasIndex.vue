@@ -705,14 +705,14 @@ import {mapState} from 'vuex'
         watch: {
             mi_fecha: function () {
 
-                if (this.action_cita == 'E' || this.action_cita == 'A'){
+                if (this.action_cita == 'A'){
                     this.cita.fecha = this.mi_fecha;
-                    this.$refs.componentAddCita.huecos();
+                    this.$refs.componentAddCita.loadHoras();
                 }
 
                 if (this.action_cita == 'E'){
                     this.cita.fecha = this.mi_fecha;
-                    this.$refs.componentEditCita.huecos();
+                    this.$refs.componentEditCita.loadHoras();
                 }
             },
             action_cita: function () {
@@ -849,6 +849,8 @@ import {mapState} from 'vuex'
             },
             async axFisAct(f, incremento = 0) {
 
+                //console.log(f);
+
                 this.show_loading = true;
 
                 let res = await axios.post('/citas/reload',{ fecha: this.mi_fecha,
@@ -908,6 +910,8 @@ import {mapState} from 'vuex'
             },
             clickDate(event){
 
+                console.log('clickDate');
+
                 this.mi_fecha = event.date;
                 this.start = event.date;
                 this.type ="category";
@@ -919,6 +923,7 @@ import {mapState} from 'vuex'
 
             },
             clickTimeCategory(e){
+                console.log('clickTimeCategory');
 
                 if (this.action_cita == 'E' || this.action_cita == 'A'){
                     var idx = this.facultativos.map(x => x.text).indexOf(e.category);
@@ -935,6 +940,7 @@ import {mapState} from 'vuex'
 
             },
             addDayCategory(e){
+                console.log('addDayCategory');
                 // console.log(this.cita);
                 // console.log('addDayCategory');
                 if (this.action_cita == 'E' || this.action_cita == 'A'){
@@ -951,6 +957,8 @@ import {mapState} from 'vuex'
                             this.cita.hora  = e.time.substr(0,2)+":30";
 
                     }
+
+                    this.mi_fecha = this.cita.fecha;
 
                     this.reload_id++;
 

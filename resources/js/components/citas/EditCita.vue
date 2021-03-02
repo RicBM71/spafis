@@ -366,6 +366,7 @@ export default {
                     hora : this.cita.hora
             })
                 .then(res => {
+                    //console.log(res);
                     this.horas = res.data.horas;
                     var idx = this.horas.map(x => x.value).indexOf(this.cita.hora);
                     if (idx < 0 && this.horas.length > 0)

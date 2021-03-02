@@ -138,6 +138,8 @@ export default {
     },
     methods:{
         submit(){
+            // var url = '/facturas/print/'+this.factura.id;
+            // window.open(url, '_blank');
 
             if (this.loading === false){
                 this.$validator.validateAll().then((result) => {
