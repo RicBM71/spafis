@@ -77,6 +77,11 @@
                             </v-btn>
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-col cols="12">
+                            <canvas id='canvasHtml5'></canvas>
+                        </v-col>
+                    </v-row>
                 </v-card-text>
             </v-card>
 
@@ -102,6 +107,7 @@ export default {
 
             turno: 'A',
             menu_d: false,
+            area_id: 1,
 
             fecha_d: new Date().toISOString().substr(0, 10),
             facultativo_id: null,
@@ -138,8 +144,15 @@ export default {
     },
     methods:{
         submit(){
-            // var url = '/facturas/print/'+this.factura.id;
-            // window.open(url, '_blank');
+            if (this.facultativo_id == null)
+                var fac = '';
+            else
+                var fac = this.facultativo_id;
+
+            var url = '/citas/print/listas/'+this.area_id+'/'+this.fecha_d+'/'+this.turno+'/'+fac;
+            window.open(url, '_blank');
+
+            return;
 
             if (this.loading === false){
                 this.$validator.validateAll().then((result) => {
@@ -162,10 +175,12 @@ export default {
 
                                 link.download = 'listas.pdf';
 
-                                document.body.appendChild(link);
-                                link.click()
-                                document.body.removeChild(link);
-                                this.$toast.success("Listas ok");
+                                window.open(link, '_blank') //to open in new tab
+
+                                // document.body.appendChild(link);
+                                // link.click()
+                                // document.body.removeChild(link);
+                                // this.$toast.success("Listas ok");
 
                                 this.loading = false;
 
@@ -221,4 +236,9 @@ input[type=number]::-webkit-outer-spin-button {
     padding-top: 6px;
     margin-top: 2px;
 }
+canvas {
+ width : 1000px;
+ height : 1000px;
+}
+
 </style>

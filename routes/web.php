@@ -180,7 +180,9 @@ Route::group([
         Route::get('recordar/{paciente_id}', [App\Http\Controllers\Citas\PrintCitasController::class, 'recordar']);
 
         Route::get('/print', [App\Http\Controllers\Citas\PrintCitasController::class, 'index']);
-        Route::post('/print/listas', [App\Http\Controllers\Citas\PrintCitasController::class, 'listas']);
+        //Route::post('/print/listas', [App\Http\Controllers\Citas\PrintCitasController::class, 'listas']);
+        //Route::get('/print/listas/{area_id}/{turno}/{fecha}/facultativo_id', [App\Http\Controllers\Citas\PrintCitasController::class, 'listas']);
+        Route::get('/print/listas/{area_id}/{fecha}/{turno}/{facultativo_id?}', [App\Http\Controllers\Citas\PrintCitasController::class, 'listas']);
 
         Route::get('justificante/{id?}', [App\Http\Controllers\Citas\PrintJustificanteController::class, 'show']);
         Route::post('justificante/print', [App\Http\Controllers\Citas\PrintJustificanteController::class, 'print']);

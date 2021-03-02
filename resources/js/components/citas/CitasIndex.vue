@@ -307,12 +307,12 @@
                                     <div :style="{'background-color':event.color,color:'black','font-size':font_size}" class="fill-height pl-1">
                                         <div :style="{'font-size':'10px'}" class="fill-height pl-1">
                                             <!-- <v-icon v-if="event.estado_id > 1" small :color="setColorEstado(event)">mdi-check</v-icon> -->
-                                            <v-icon small :color="setColorEstado(event)">{{setIcono(event)}}</v-icon>
+                                            <v-icon v-if="isSupervisor" small :color="setColorEstado(event)">{{setIcono(event)}}</v-icon>
                                             <b :color="colores[event.estado_id]">{{getTimeFormat(event.start)}}</b> - <span :class="textAnulado(event.estado_id)">{{ event.name }}</span>
                                             <span>- {{getTimeFormat(event.end)}}</span>
-                                            <span v-if="isAdmin && event.notas == null && event.importe > 0" style="float:right;padding-right:5px;">{{ getCurrencyFormat(event.importe)}}</span>
+                                            <span v-if="isSupervisor && event.notas == null && event.importe > 0" style="float:right;padding-right:5px;">{{ getCurrencyFormat(event.importe)}}</span>
                                             <br/>
-                                            <span v-if="event.tratamiento!=null">({{ event.tratamiento}})</span> <span> <b v-if="event.bono != null" :style="{'color':'white','background-color':'#880E4F'}">({{event.bono}})</b> </span>
+                                            <span v-if="event.tratamiento!=null">({{ event.tratamiento}})</span> <span> <b v-if="isSupervisor && event.bono != null" :style="{'color':'white','background-color':'#880E4F'}">({{event.bono}})</b> </span>
 
                                             <span style="color:#880E4F">{{event.notas}}</span>
 

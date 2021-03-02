@@ -51,31 +51,43 @@ class PrintCitasController extends Controller
 
     }
 
-    public function listas(Request $request){
+    // public function listas(Request $request){
 
-        $data = $request->validate([
-            'area_id'       => ['required', 'integer'],
-            'fecha'         => ['required', 'date'],
-            'facultativo_id'=> ['nullable', 'integer'],
-            'turno'         => ['required', 'max:1'],
-            ]);
+    //     $data = $request->validate([
+    //         'area_id'       => ['required', 'integer'],
+    //         'fecha'         => ['required', 'date'],
+    //         'facultativo_id'=> ['nullable', 'integer'],
+    //         'turno'         => ['required', 'max:1'],
+    //         ]);
+
+
+
+        // $citas = Cita::with(['tratamiento','facultativo','paciente'])
+        //                 ->where('area_id', $data['area_id'])
+        //                 ->whereDate('fecha', $data['fecha'])
+        //                 ->where('estado_id', '<>', '4')
+        //                 ->facultativo($data['facultativo_id'])
+        //                 ->orderBy('facultativo_id')
+        //                 ->orderBy('hora')
+        //                 ->get();
+
+    public function listas($area_id,$fecha,$turno,$facultativo_id=null){
 
         $citas = Cita::with(['tratamiento','facultativo','paciente'])
-                        ->where('area_id', $data['area_id'])
-                        ->whereDate('fecha', $data['fecha'])
+                        ->where('area_id', $area_id)
+                        ->whereDate('fecha', $fecha)
                         ->where('estado_id', '<>', '4')
-                        ->facultativo($data['facultativo_id'])
+                        ->facultativo($facultativo_id)
                         ->orderBy('facultativo_id')
                         ->orderBy('hora')
                         ->get();
-
 
         ob_end_clean();
 
         $empresa  = session('empresa');
         $this->setPrepararFormulario($empresa);
 
-        $this->frmLista($citas, $data['turno']);
+        $this->frmLista($citas, $turno);
 
         PDF::Close();
 
@@ -185,9 +197,7 @@ class PrintCitasController extends Controller
             }
 
             $bono = Pacbono::getSesionesBono($cita->paciente_id, $cita->bono);
-            if ($cita->paciente_id == 7510){
-                $hc = Historia::where('paciente_id', $cita->paciente_id)->orderBy('fecha','desc')->first();
-            }
+
             $hc = Historia::where('paciente_id', $cita->paciente_id)->orderBy('fecha','desc')->first();
 
 
@@ -212,7 +222,7 @@ class PrintCitasController extends Controller
 
             PDF::SetTextColor(240,0,0);
             PDF::MultiCell($w=18, $maxh, $embarazada, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
-            PDF::MultiCell($w=50, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=40, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             PDF::SetTextColor(0,0,0);
 
             //PDF::writeHTML($ultimas, true, false, true, false, '');
@@ -309,6 +319,8 @@ class PrintCitasController extends Controller
                 $str.='<span style="color: blue;">('.$dif.'d) </span>';
             }
 
+            if ($dif > 90) break; // sin son más de 90 días no tiene sentido mostrar dias
+
             $today = $dt;
 
             $i++;
@@ -367,7 +379,7 @@ class PrintCitasController extends Controller
         PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
         // set margins
-        PDF::SetMargins(4, 0, PDF_MARGIN_RIGHT);
+        PDF::SetMargins(4, 5, PDF_MARGIN_RIGHT);
         //PDF::SetMargins(13, 58, PDF_MARGIN_RIGHT);
         PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
         PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
