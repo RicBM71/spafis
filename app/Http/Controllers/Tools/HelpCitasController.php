@@ -117,12 +117,15 @@ class HelpCitasController extends Controller
         $data = $request->validate([
             'fecha'          => ['required','date'],
             'facultativo_id' => ['required','integer'],
+            'tratamiento_id' => ['required', 'integer'],
+            'paciente_id'    => ['required', 'integer'],
             'hora'           => ['nullable']
         ]);
 
         if (request()->wantsJson())
             return[
-                'horas' => Cita::selectHorasFacultativo($data['fecha'], $data['facultativo_id'], $data['hora'])
+                'horas' => Cita::selectHorasFacultativo($data['fecha'], $data['facultativo_id'], $data['hora']),
+                'precios' => $this->getPrecioTratamiento($data['paciente_id'],$data['tratamiento_id'],$data['fecha'])
             ];
     }
 

@@ -940,8 +940,8 @@ import {mapState} from 'vuex'
 
             },
             addDayCategory(e){
-                console.log('addDayCategory');
-                // console.log(this.cita);
+                console.log('addDayCategory '+this.reload_id);
+
                 // console.log('addDayCategory');
                 if (this.action_cita == 'E' || this.action_cita == 'A'){
 
@@ -958,7 +958,9 @@ import {mapState} from 'vuex'
 
                     }
 
-                    this.mi_fecha = this.cita.fecha;
+                    console.log(this.cita);
+
+                    //this.mi_fecha = this.cita.fecha;
 
                     this.reload_id++;
 

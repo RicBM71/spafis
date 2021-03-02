@@ -360,12 +360,18 @@ export default {
         loadHoras(){
 
             axios.post('/tools/citas/huecos', {
+                    paciente_id : this.cita.paciente_id,
+                    tratamiento_id : this.cita.tratamiento_id,
+                    fecha : this.cita.fecha,
                     facultativo_id : this.cita.facultativo_id,
-                    hora : false,
-                    fecha : this.cita.fecha
+                    hora : this.cita.hora
             })
                 .then(res => {
                     this.horas = res.data.horas;
+                    this.cita.importe = res.data.precios.importe;
+                    this.cita.bono = res.data.precios.bono;
+                    this.cita.iva = res.data.precios.iva;
+                    this.cita.importe_ponderado = res.data.precios.importe_ponderado;
                 })
                 .catch(err => {
                     console.log(err);
@@ -409,6 +415,7 @@ export default {
 
             this.loading = true;
             axios.post('/tools/horas', {
+                    tratamiento_id : this.cita.tratamiento_id,
                     fecha : this.cita.fecha,
                     facultativo_id : this.cita.facultativo_id,
                     hora : false
