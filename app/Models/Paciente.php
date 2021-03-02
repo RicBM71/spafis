@@ -179,10 +179,30 @@ class Paciente extends Model
 
             if (!Empty($razon)){
 
-                if (strpos($razon,',')){
-                    $cli = explode(",", $razon);
-                    $query->where('nombre','like',$cli[0].'%')
-                          ->where('apellidos','like',$cli[1].'%');
+
+                if (strpos($razon,',')!==false){
+
+                    if (strpos($razon,',') !== false){
+
+                        $data_exp = explode(",", $razon);
+
+                        if ($data_exp[0] != '' && $data_exp[1] != ''){
+                            $query->where('nombre','like',$data_exp[0].'%')
+                                  ->where('apellidos','like',$data_exp[1].'%');
+                        }elseif ($data_exp[0] != ''){
+                            $query->where('nombre','like',$data_exp[0].'%');
+                        }elseif ($data_exp[1] != ''){
+                            $query->where('apellidos','like',$data_exp[1].'%');
+                        }
+
+                        return $query;
+
+                    }
+
+
+                    // $cli = explode(",", $razon);
+                    // $query->where('nombre','like',$cli[0].'%')
+                    //       ->where('apellidos','like',$cli[1].'%');
                 }else if(strpos($razon,'.') !== false){
 
                     $bono = substr($razon,1);
