@@ -84,6 +84,9 @@ class PacientesController extends Controller
             'apellidos' => ['required', 'string', 'max:50'],
         ]);
 
+        $data['poblacion'] = session('empresa')->poblacion;
+        $data['cpostal'] = session('empresa')->cpostal;
+        $data['provincia'] = session('empresa')->provincia;
         $data['username'] = session('username');
 
         $reg = Paciente::create($data);
@@ -120,14 +123,15 @@ class PacientesController extends Controller
             $recomendado = null;
         }
 
-        $citas = esSupervisor() ? Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->orderBy('fecha', 'desc')->get() :
-                                  Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->orderBy('fecha', 'desc')->get()->take(10);
+        $citas = esSupervisor() ? Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->where('estado_id','<>',4)->orderBy('fecha', 'desc')->get() :
+                                  Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->where('estado_id','<>',4)->orderBy('fecha', 'desc')->get()->take(10);
 
         if ($citas->count() > 0 && session('facultativo_id') > 0){
             $c = $citas->first();
             $dif = Carbon::parse($c->fecha);
-            $d = $dif->diffInDays(Carbon::today());
-            if ($d > 10)
+            $d = $dif->diffInDays(Carbon::today(), false);
+            // $kk = Carbon::today()->diffInDays($dif, false);
+            if ($d > 30)
                 return abort(401,'Ha excedido el límite de consulta por días de inactividad!');
         }
 

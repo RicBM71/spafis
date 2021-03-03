@@ -832,7 +832,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: this.ruta+'.index'})
+                        this.$router.push({ name: 'dash'})
                     })
                     .finally(()=> {
                         this.show_loading = false;

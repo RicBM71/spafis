@@ -94,7 +94,7 @@ class FacturasController extends Controller
         $data['cpostal']   = $paciente->cpostal;
         $data['poblacion'] = $paciente->poblacion;
         $data['provincia'] = $paciente->provincia;
-        $data['cif']       = $paciente->dni;
+        $data['cif']       = $paciente->cif;
 
         $fecha = Carbon::parse($data['fecha']);
         $data['ejercicio']    = $fecha->format('Y');
