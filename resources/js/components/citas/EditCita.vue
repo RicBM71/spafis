@@ -304,7 +304,7 @@ export default {
             }
         },
         reload_id: function () {
-            this.loadHoras();
+           // this.loadHoras();
         }
 
     },
@@ -368,7 +368,7 @@ export default {
                     hora : this.cita.hora
             })
                 .then(res => {
-                    
+
                     this.cita.importe = res.data.precios.importe;
                     this.cita.bono = res.data.precios.bono;
                     this.cita.iva = res.data.precios.iva;

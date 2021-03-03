@@ -842,10 +842,14 @@ import {mapState} from 'vuex'
             reloadFisAct(){
                 this.axFisAct();
                 this.cita.facultativo_id = this.facultativo_id;
+                console.log(this.action_cita);
+
                 if (this.action_cita == 'A')
-                    this.$refs.componentAddCita.huecos();
+                    this.$refs.componentAddCita.loadHoras();
+
                 if (this.action_cita == 'E')
-                    this.$refs.componentEditCita.huecos();
+                    this.$refs.componentEditCita.loadHoras();
+
             },
             async axFisAct(f, incremento = 0) {
 
@@ -931,9 +935,9 @@ import {mapState} from 'vuex'
                     this.cita.facultativo_id = this.facultativos[idx].value;
 
                     if (this.action_cita == 'A')
-                        this.$refs.componentAddCita.huecos();
+                        this.$refs.componentAddCita.loadHoras();
                     if (this.action_cita == 'E')
-                        this.$refs.componentEditCita.huecos();
+                        this.$refs.componentEditCita.loadHoras();
 
                 }
 

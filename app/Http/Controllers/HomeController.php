@@ -154,7 +154,7 @@ class HomeController extends Controller
                             ->whereYear('fecha',date('Y'))
                             ->whereMonth('fecha',date('m'))
                             ->whereDate('fecha', '<=', date('Y-m-d'))
-                            ->where('facultativo_id', 23)
+                            ->where('facultativo_id', $facultativo_id)
                             ->whereIn('estado_id',[2,3])
                             ->get()
                             ->count();

@@ -614,12 +614,12 @@ export default {
             return this.cita.estado_id == 1 ? true : false;
         },
         computedTratado(){
-            if (this.cita.fecha > this.hoy) return false;
+            if (this.cita.fecha > this.hoy || !this.isSupervisor) return false;
 
             return this.cita.estado_id == 1 ? true : false;
         },
         computedAnular(){
-            if (!this.isAdmin) return false;
+            if (!this.isSupervisor) return false;
             return this.cita.estado_id == 3 ? false : true;
         },
         computedCobrar(){

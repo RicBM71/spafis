@@ -62,14 +62,17 @@ class CitasController extends Controller
                         ->orderBy('fecha', 'desc')
                         ->first();
 
-        if ($ult_cita == null)
+        if ($ult_cita == null){
             $ult_cita = false;
+            $hora = false;
+        }
         else{
             if ($data['facultativo_id'] == null)
                 $data['facultativo_id'] = $ult_cita->facultativo_id;
+            $hora = $ult_cita->hora;
         }
 
-        $horas_disponibles = Cita::selectHorasFacultativo($data['fecha'], $data['facultativo_id'], false);
+        $horas_disponibles = Cita::selectHorasFacultativo($data['fecha'], $data['facultativo_id'], $hora);
 
         if (request()->wantsJson())
             return[

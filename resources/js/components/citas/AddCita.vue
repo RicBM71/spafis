@@ -134,7 +134,7 @@
                         data-vv-name="facultativo_id"
                         data-vv-as="facultativo_id"
                         :items="facultativos"
-                        @change="huecos"
+                        @change="loadHoras"
                     ></v-select>
                 </v-col>
                 <v-col
@@ -273,12 +273,11 @@ export default {
     mounted(){
 
         this.loading = true;
-        console.log(this.cita);
 
         axios.post('/citas/add',this.cita)
             .then(res => {
 
-                console.log(res);
+                console.log(res.data.horas);
 
                 this.tratamientos = res.data.tratamientos;
                 this.facultativos = res.data.facultativos;
@@ -358,7 +357,7 @@ export default {
             this.$emit('update:action_cita', 'V');
         },
         loadHoras(){
-
+        console.log('hueco.add');
             axios.post('/tools/citas/huecos', {
                     paciente_id : this.cita.paciente_id,
                     tratamiento_id : this.cita.tratamiento_id,
@@ -366,6 +365,7 @@ export default {
                     facultativo_id : this.cita.facultativo_id,
                     hora : this.cita.hora
             })
+
                 .then(res => {
                     this.horas = res.data.horas;
                     this.cita.importe = res.data.precios.importe;
@@ -389,7 +389,7 @@ export default {
                     paciente_id : this.cita.paciente_id,
                     facultativo_id : this.cita.facultativo_id,
                     fecha : this.cita.fecha,
-                    hora  : false
+                    hora  : this.cita.hora
             })
                 .then(res => {
                     this.cita.importe = res.data.precios.importe;
