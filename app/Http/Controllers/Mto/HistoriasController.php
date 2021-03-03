@@ -66,6 +66,7 @@ class HistoriasController extends Controller
         $data = $request->validated();
 
         $data['username'] = session('username');
+        $data['updated_at'] = Carbon::now();
 
         $historia->update($data);
 

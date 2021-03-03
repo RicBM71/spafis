@@ -19,7 +19,8 @@ class Historia extends Model
         'informe',
         'cie',
         'facultativo_id',
-        'username'
+        'username',
+        'updated_at'
 
     ];
 

@@ -224,6 +224,9 @@
                                                 Sesiones
                                             </th>
                                             <th class="text-center">
+                                                % Obj.
+                                            </th>
+                                            <th class="text-center">
                                                 Importe
                                             </th>
                                         </tr>
@@ -234,7 +237,8 @@
                                             :key="item.alias"
                                         >
                                             <td class="font-weight-bold">{{item.alias}}</td>
-                                            <td class="text-right">{{ getDecimal(item.sesiones,0) }}</td>
+                                            <td class="text-right">{{ getDecimal(item.sesiones,0) }}/{{item.objetivo}}</td>
+                                            <td class="text-right">{{ objetivo(item) }}</td>
                                             <td class="text-right">{{ getCurrencyFormat(item.importe) }}</td>
                                         </tr>
                                     </tbody>
@@ -385,6 +389,11 @@ import {mapGetters} from 'vuex';
             },
             getPorcentaje(value){
                 return new Intl.NumberFormat("de-DE",{style: "decimal",minimumFractionDigits:2}).format(parseFloat(value))+"%";
+            },
+            objetivo(item){
+                if (item.objetivo == 0 || item.objetivo == null) return '-';
+
+                return Math.round(item.sesiones / item.objetivo * 100)+'%';
             },
             submit() {
 

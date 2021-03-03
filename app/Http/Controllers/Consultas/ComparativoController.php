@@ -156,13 +156,14 @@ class ComparativoController extends Controller
     private function tratamientosFacultativo($area_id, $d, $h){
 
         return DB::table('citas')
-                    ->select(DB::raw('facultativos.alias, IFNULL(SUM(importe_ponderado),0) AS importe, COUNT(*) AS sesiones'))
+                    ->select(DB::raw('facultativos.alias, objetivo, IFNULL(SUM(importe_ponderado),0) AS importe, COUNT(*) AS sesiones'))
                         ->join('facultativos','facultativos.id','=','facultativo_id')
                         ->where('area_id', $area_id)
                         ->whereDate('fecha', '>=', $d)
                         ->whereDate('fecha', '<=', $h)
                         ->where('estado_id', '<>', 4)
                         ->groupBy('alias')
+                        ->groupBy('objetivo')
                         ->orderBy('sesiones','desc')
                         ->get();
 

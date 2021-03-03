@@ -32,6 +32,7 @@
                                         offset-md="1"
                                     >
                                         <v-text-field
+                                            class="caption"
                                             hide-details="true"
                                             outlined
                                             dense
@@ -49,6 +50,7 @@
                                         offset="1"
                                     >
                                         <v-autocomplete
+                                            class="caption"
                                             v-model="recomendado_id"
                                             :items="recomendados"
                                             :loading="isLoading"
@@ -331,7 +333,9 @@ export default {
 
         this.loadPendientes();
     },
-
+    created: function () {
+        this.debouncedGetAnswer = _.debounce(this.getPacientes, 2000)
+    },
     computed: {
          ...mapGetters([
             'userId',
@@ -366,7 +370,12 @@ export default {
         sw_todo: function () {
             this.loadPendientes();
         },
-        search_recomendado (val) {
+        search_recomendado: function (newQuestion, oldQuestion) {
+            this.debouncedGetAnswer()
+        },
+    },
+    methods:{
+        getPacientes() {
 
             if (this.search_recomendado == null || this.search_recomendado.length <= 4) return;
 
@@ -393,8 +402,6 @@ export default {
 
 
             },
-    },
-    methods:{
         clearRec(){
             this.recomendado_id = null;
             this.recomendados = [];
