@@ -62,7 +62,7 @@ class CobroCitasController extends Controller
             'pacientes_id'   => ['required'],
             'mutua_id'       => ['nullable', 'integer'],
             'importe'        => ['required', 'numeric'],
-            'autorizacion'   => ['nullable', 'integer'],
+            'autorizacion'   => ['nullable'],
             'fpago_id'       => ['required', 'integer']
         ]);
 
