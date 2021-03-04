@@ -19,10 +19,13 @@ class TpvMovController extends Controller
 
         $recibo = TpvMov::where('paciente_id',$data['paciente_id'])
                           ->where('procesado', false)
-                          ->first();
+                          ->get();
 
-        if ($recibo == null)
+
+        if ($recibo->count() == 0)
             return response('No hay nada que procesar', 202);
+
+        $recibo = $recibo->first();
 
         if ($recibo->importe != $data['importe'])
             return abort(411, 'Importes sin procesar '.$recibo->importe.' difiere de '.$data['importe']);
