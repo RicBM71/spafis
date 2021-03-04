@@ -510,7 +510,9 @@ export default {
             return new Intl.NumberFormat("de-DE",{style: "currency", currency: "EUR",minimumFractionDigits:2}).format(parseFloat(value))
         },
         cancelar(){
+            console.log('cancelar:clearInterval');
             clearInterval(this.check_bbdd);
+            console.log(this.check_bbdd);
             var id = this.reload_id + 1;
 
             this.$emit('update:reload_id', id);

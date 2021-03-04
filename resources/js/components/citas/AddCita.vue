@@ -414,11 +414,12 @@ export default {
         loadHoras(){
 
             this.loading = true;
-            axios.post('/tools/horas', {
+            axios.post('/tools/citas/huecos', {
+                    paciente_id : this.cita.paciente_id,
                     tratamiento_id : this.cita.tratamiento_id,
                     fecha : this.cita.fecha,
                     facultativo_id : this.cita.facultativo_id,
-                    hora : false
+                    hora : this.cita.hora
             })
                 .then(res => {
                     this.horas = res.data.horas;
