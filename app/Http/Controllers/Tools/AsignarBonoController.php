@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tools;
 
+use Carbon\Carbon;
 use App\Models\Bono;
 use App\Models\Cita;
 use App\Models\Pacbono;
@@ -17,10 +18,13 @@ class AsignarBonoController extends Controller
         $tratamiento = Tratamiento::findOrFail($pacbono->tratamiento_id);
 
         // busco citas pendientes sin bono asignado.
+        $dt = Carbon::now()->subDays(365); // para evitar asignar antiguos, regalos por ejemplo.
 
         $citas = Cita::where('paciente_id', $pacbono->paciente_id)
                     ->where('tratamiento_id', $pacbono->tratamiento_id)
                     ->where('estado_id', '<=', 2)
+                    //->where('importe', '>', 0)
+                    ->where('fecha', '>=', $dt)
                     ->where('fecha', '<=', date('Y-m-d'))
                     ->whereNull('bono')
                     ->orderBy('fecha','asc')

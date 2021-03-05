@@ -141,13 +141,17 @@ class HelpCitasController extends Controller
 						->where('tratamiento_id', $data['tratamiento_id'])
 						->where('caducado', false)
 						->orderBy('fecha','desc')
-                        ->first();
+                        ->get();
+        if ($bono->count() == 0)
+            return abort(404,'No hay bono que anticipar');
+
+        $bono = $bono->first();
 
         if (Cita::where('bono', $bono->bono)
                 ->where('estado_id', '<>', 4)
                 ->get()
                 ->count() > 0)
-            return abort(404,'No hay bono que anticipar');
+            return abort(404,'No hay bono que anticipar **');
 
         if ($bono == null) return abort(404,'No hay bono que anticipar');
 
