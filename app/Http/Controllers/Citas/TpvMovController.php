@@ -15,6 +15,7 @@ class TpvMovController extends Controller
         $data = $request->validate([
             'paciente_id'  => ['required', 'integer'],
             'importe'      => ['required', 'numeric'],
+            'fecha'      => ['required', 'date'],
         ]);
 
         $recibo = TpvMov::where('paciente_id',$data['paciente_id'])
