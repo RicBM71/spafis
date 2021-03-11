@@ -18,6 +18,7 @@ class TpvMovController extends Controller
         ]);
 
         $recibo = TpvMov::where('paciente_id',$data['paciente_id'])
+                          ->whereDate('fecha', $data['fecha'])
                           ->where('procesado', false)
                           ->get();
 
@@ -28,7 +29,7 @@ class TpvMovController extends Controller
         $recibo = $recibo->first();
 
         if ($recibo->importe != $data['importe'])
-            return abort(411, 'Importes sin procesar '.$recibo->importe.' difiere de '.$data['importe']);
+            return abort(411, 'Importes sin procesar Recibo: '.$recibo->importe.' difiere de Cobro: '.$data['importe']);
 
         $recibo->update([
             'username'  => session('username'),

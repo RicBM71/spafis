@@ -72,8 +72,8 @@
             var token = $('meta[name="csrf-token"]').attr('content');
 
             $(document).ready(function(){
-               // alert("llega");
-               IniTpvpcImplantado();
+
+              IniTpvpcImplantado();
               //EnviarPeticion();
             });
 
@@ -270,6 +270,14 @@
                 //         '</resultadoOperacion>'+
                 //         '</Operaciones>';
 
+                // var xml='<Operaciones version="6.0"><resultadoOperacion><tipoPago>PAGO</tipoPago><importe>32.00</importe><moneda>978</moneda><tarjetaClienteRecibo>************0112</tarjetaClienteRecibo>'+
+                //         '<tarjetaComercioRecibo>************0112</tarjetaComercioRecibo><marcaTarjeta>2</marcaTarjeta><caducidad>0000</caducidad><comercio>025256579</comercio>'+
+                //         '<terminal>1</terminal><pedido>11016</pedido><identificadorRTS>070013210303123638498736</identificadorRTS><fechaOperacion>2021-03-03 12:36:37.0</fechaOperacion>'+
+                //         '<estado>F</estado><resultado>Denegada</resultado><codigoRespuesta>195</codigoRespuesta><Literales><literal>OBLIGATORIO INSERTAR CHIP</literal>'+
+                //         '</Literales><firma>08A1C1E33B6C496BEAE9CEEB8A1BBC0E58084DA740F276F2627AE130702645F4</firma>'+
+                //         '<operacionemv>true</operacionemv><resverificacion>0000008001</resverificacion><conttrans>000703</conttrans><sectarjeta>00</sectarjeta>'+
+                //         '<idapp>A0000000041010</idapp><etiquetaApp>MASTERCARD</etiquetaApp><operContactLess>TRUE</operContactLess></resultadoOperacion></Operaciones>';
+
 
                 var imp = $("#TXTIMPORTE").val();
                 xml = xml.replace('%s', imp);
@@ -288,6 +296,8 @@
 
                 if (res_auth[0] == 'TRUE')
                     $("#auth").append(res_auth[1]);
+
+                   // alert($resultado.text());
 
 
                 if ($resultado.text() == "Autorizada")

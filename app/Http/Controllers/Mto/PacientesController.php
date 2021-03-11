@@ -123,7 +123,7 @@ class PacientesController extends Controller
             $recomendado = null;
         }
 
-        $citas = esSupervisor() ? Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->where('estado_id','<>',4)->orderBy('fecha', 'desc')->get() :
+        $citas = esSupervisor() ? Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->orderBy('fecha', 'desc')->get() :
                                   Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->where('estado_id','<>',4)->orderBy('fecha', 'desc')->get()->take(10);
 
         if ($citas->count() > 0 && session('facultativo_id') > 0){
@@ -142,7 +142,7 @@ class PacientesController extends Controller
             return [
                 'medios'   => Medio::selMedios(),
                 'mutuas'   => Mutua::selMutuas(),
-                'paciente' => $paciente,
+                'paciente'  => $paciente,
                 'recomendado' => $recomendado,
                 'citas'     => $citas,
             ];

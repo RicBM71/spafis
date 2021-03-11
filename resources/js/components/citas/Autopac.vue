@@ -36,7 +36,7 @@
 
     }),
     created: function () {
-        this.debouncedGetAnswer = _.debounce(this.getPacientes, 1000)
+        this.debouncedGetAnswer = _.debounce(this.getPacientes, 2000)
     },
 
     watch: {

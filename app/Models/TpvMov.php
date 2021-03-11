@@ -12,7 +12,7 @@ class TpvMov extends Model
     protected $fillable = [
 
         'empresa_id', 'fecha', 'paciente_id', 'tpv_id',  'tipo_pago', 'moneda', 'comercio', 'pedido', 'fecha_operacion',
-        'titular_tarjeta', 'tarjeta', 'estado', 'codigo_respuesta','importe','autenticado', 'username'
+        'titular_tarjeta', 'tarjeta', 'estado', 'codigo_respuesta','importe','autenticado', 'username', 'procesado'
 
     ];
 
