@@ -842,7 +842,7 @@ import {mapState} from 'vuex'
             reloadFisAct(){
                 this.axFisAct();
                 this.cita.facultativo_id = this.facultativo_id;
-                console.log(this.action_cita);
+                console.log('reloadFisAct');
 
                 if (this.action_cita == 'A')
                     this.$refs.componentAddCita.loadHoras();
@@ -949,20 +949,29 @@ import {mapState} from 'vuex'
                 // console.log('addDayCategory');
                 if (this.action_cita == 'E' || this.action_cita == 'A'){
 
+
+
                     if (this.cita.tune){
                         this.cita.fecha = e.date;
                         if (this.action_cita == 'E')
                             this.cita.hora = e.time;
                     }else{
+
                         this.cita.fecha = e.date;
                         if (e.time.substr(3,2) <= 30)
                             this.cita.hora  = e.time.substr(0,2)+":00";
                         else
                             this.cita.hora  = e.time.substr(0,2)+":30";
 
+                        if (this.action_cita == 'A')
+                            this.$refs.componentAddCita.loadHoras();
+                        if (this.action_cita == 'E')
+                            this.$refs.componentEditCita.loadHoras();
+
+
                     }
 
-                    console.log(this.cita);
+                    //console.log(this.cita);
 
                     //this.mi_fecha = this.cita.fecha;
 
