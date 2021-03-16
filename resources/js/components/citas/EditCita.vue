@@ -368,7 +368,7 @@ export default {
                     hora : this.cita.hora
             })
                 .then(res => {
-                    console.log(res);
+
                     this.cita.importe = res.data.precios.importe;
                     this.cita.bono = res.data.precios.bono;
                     this.cita.iva = res.data.precios.iva;

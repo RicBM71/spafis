@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Consultas;
 use App\Models\Area;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use App\Exports\BalancePacExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BalancePacController extends Controller
 {
@@ -51,6 +53,21 @@ class BalancePacController extends Controller
             'items' => $rows,
             'total_cobrado' => $rows->sum('importe')
         ];
+
+    }
+
+    public function excel(Request $request){
+
+        $data = $request->validate([
+            'fechad'      => ['required','date'],
+            'fechah'      => ['required','date'],
+            'paciente_id' => ['required','integer'],
+            'area_id'     => ['required','integer'],
+        ]);
+
+        $datos = $this->procesar($data);
+
+        return Excel::download(new BalancePacExport($datos), 'report.xlsx');
 
     }
 }

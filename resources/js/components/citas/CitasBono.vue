@@ -128,7 +128,7 @@ export default {
 
             var f = item.fecha + " " + item.hora;
 
-            return moment(f).format('DD/MM/YYYY H:mm');
+            return moment(f).format('DD/MM/YYYY H:mm ddd');
 
         },
         getCurrencyFormat(value){

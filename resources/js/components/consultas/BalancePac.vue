@@ -282,7 +282,6 @@ import {mapGetters} from 'vuex';
                             axios.post(this.url, this.data)
                                 .then(res => {
 
-                                    console.log(res);
                                     this.items = res.data.items;
 
                                     this.loading = false;
@@ -322,7 +321,8 @@ import {mapGetters} from 'vuex';
                     responseType: 'blob', // important
                     data:{  area_id: this.data.area_id,
                             fechad: this.data.fechad,
-                            fechah: this.data.fechah
+                            fechah: this.data.fechah,
+                            paciente_id: this.paciente.id
                          }
                     })
                 .then(response => {
