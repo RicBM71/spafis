@@ -218,6 +218,10 @@ Route::group([
         Route::get('comparativo', [App\Http\Controllers\Consultas\ComparativoController::class, 'index']);
         Route::post('comparativo', [App\Http\Controllers\Consultas\ComparativoController::class, 'submit']);
         Route::post('comparativo/excel', [App\Http\Controllers\Consultas\ComparativoController::class, 'excel']);
+
+        Route::get('balance/{paciente}', [App\Http\Controllers\Consultas\BalancePacController::class, 'index']);
+        Route::post('balance', [App\Http\Controllers\Consultas\BalancePacController::class, 'submit']);
+        Route::post('balance/excel', [App\Http\Controllers\Consultas\BalancePacController::class, 'excel']);
     }
 );
 

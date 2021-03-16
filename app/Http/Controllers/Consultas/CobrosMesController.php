@@ -30,7 +30,8 @@ class CobrosMesController extends Controller
             'area_id'   => ['required','integer'],
         ]);
 
-        return $this->procesar($data);
+        if (request()->wantsJson())
+            return $this->procesar($data);
     }
 
     private function procesar($data){

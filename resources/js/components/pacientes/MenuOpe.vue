@@ -2,7 +2,19 @@
     <div>
         <my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
         <loading :show_loading="show_loading"></loading>
-
+        <v-tooltip bottom v-if="isAdmin">
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    color="white"
+                    icon
+                    @click="goBalance"
+                >
+                    <v-icon color="primary">mdi-calculator</v-icon>
+                </v-btn>
+            </template>
+            <span>Balance</span>
+        </v-tooltip>
         <v-tooltip bottom v-if="isSupervisor && foto==false">
             <template v-slot:activator="{ on }">
                 <v-btn
@@ -261,6 +273,9 @@ export default {
                 });
 
             }
+        },
+        goBalance(){
+            this.$router.push({ name: 'balance.paciente', params: { id: this.id } })
         },
         goLortad(){
 

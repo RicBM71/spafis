@@ -73,8 +73,8 @@ class Pacbono extends Model
                     ->where('citas.estado_id', '<>', '4')
                     ->count();
 
-        if ($resto == null)
-            return $data;
+        // if ($resto == null)
+        //     return $data;
 
         return [
             'numero_bono' => $bono->bono,

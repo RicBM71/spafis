@@ -96,6 +96,8 @@ import Justificante from './components/citas/Justificante.vue';
 import EnviarSMS from './components/citas/EnviarSMS.vue';
 import ListarCitas from './components/citas/ListarCitas.vue';
 
+import BalancePac from './components/consultas/BalancePac.vue';
+
 export default [
 	{
 		path: '/',
@@ -458,6 +460,11 @@ export default [
                 path: '/comparativo',
                 name: 'comparativo.index',
                 component: Comparativo,
+            },
+            {
+                path: '/balance/paciente/:id',
+                name: 'balance.paciente',
+                component: BalancePac,
             },
 
             // {
