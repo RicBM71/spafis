@@ -213,7 +213,7 @@ class Paciente extends Model
                             });
                 }else if(strpos($razon,'+') !== false){
 
-                    if (!hasContact() || strlen($razon) < 5) return false;
+                    if (!hasContact() || strlen($razon) <= 9) return false;
 
                     $tf = substr($razon,1);
                     $query->where('telefono1', 'like', $tf.'%')
