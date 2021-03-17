@@ -96,6 +96,7 @@ import {mapGetters} from 'vuex'
     computed: {
         ...mapGetters([
             'isAdmin',
+            'isSupervisor',
             'userName'
         ])
     },

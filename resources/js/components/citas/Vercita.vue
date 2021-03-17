@@ -1,10 +1,9 @@
 <template>
 
         <div v-if="cita.id > 0">
-
             <v-row >
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="12"
                     md="3"
                 >
@@ -21,7 +20,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="12"
                     md="3"
                 >
@@ -38,7 +37,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="12"
                     md="1"
                 >
@@ -55,7 +54,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="4"
                     md="1"
                 >
@@ -72,7 +71,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="3"
                     md="1"
                 >
@@ -89,7 +88,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="5"
                     md="1"
                 >
@@ -107,7 +106,7 @@
                 </v-col>
 
                 <v-col
-                    class="pa-1"
+                    class="pa-2"
                     cols="3"
                     md="1"
                 >
@@ -536,6 +535,7 @@
                     </v-tooltip>
                 </v-col>
             </v-row>
+            <br/>
         </div>
 
 

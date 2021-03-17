@@ -330,7 +330,7 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="12">
+                    <v-col class="pa-4" cols="12">
                         <v-divider></v-divider>
                     </v-col>
                 </v-row>
@@ -545,7 +545,7 @@ import {mapState} from 'vuex'
                 categories:[],
 
                 first_time:"09:00",
-                categories:[],
+
                 event_active: { id: 0},
                 menu: false,
                 mi_fecha: new Date().toISOString().substr(0, 10),
@@ -653,9 +653,12 @@ import {mapState} from 'vuex'
 
                     this.facultativos = res.data.facultativos;
 
-                    if (this.facultativo == null)
+                    if (this.facultativo == null){
                         this.facultativos.push({value:null,text:"Todos"});
+                        this.categories = res.data.categories;
+                    }
                     else{
+                        this.categories.push(this.facultativo);
                         this.facultativo_id = this.facultativo;
                     }
 
@@ -915,6 +918,9 @@ import {mapState} from 'vuex'
             clickDate(event){
 
                 console.log('clickDate');
+                // console.log(this.categories);
+                // console.log(this.events);
+                // this.categories = ['Sara','Alejandro'];
 
                 this.mi_fecha = event.date;
                 this.start = event.date;

@@ -33,15 +33,18 @@ class CitasController extends Controller
         if (session('facultativo_id') > 0)
             $parametros['facultativo_id'] = session('facultativo_id');
 
+        $facultativos = Facultativo::selFacultativos();
+
         if (request()->wantsJson())
             return [
                 'areas'         => Area::selAreas(),
                 'citas'         => $this->getCitas(1, $parametros['fecha'], $parametros),
                 'bloqueos'      => $this->getBloqueos($parametros['fecha']),
-                'facultativos'  => Facultativo::selFacultativos(),
+                'facultativos'  => $facultativos,
                 'weekdays'      => $this->getSemana($parametros['fecha']),
                 'today'         => Carbon::parse($parametros['fecha'])->format('Y-m-d'),
-                'festivos'      => Festivo::whereYear('fecha', '>=', date('Y'))->get()->pluck('fecha')
+                'festivos'      => Festivo::whereYear('fecha', '>=', date('Y'))->get()->pluck('fecha'),
+                'categories'    => $facultativos->pluck('text')
             ];
     }
 
@@ -148,8 +151,6 @@ class CitasController extends Controller
                 return abort(404,'Supera límite consulta');
             }
         }
-
-
 
 
         if ($data['incremento'] == 0){

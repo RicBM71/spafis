@@ -60,7 +60,11 @@
                     </v-tab>
 
                     <v-tab-item>
-                        <v-form>
+                        <v-card flat>
+                            <v-card-text>
+
+                                 <v-form>
+
                                 <v-row>
                                     <v-col
                                         cols="12"
@@ -555,166 +559,192 @@
 
 
                         </v-form>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-form>
-                            <v-row>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.ant1"
-                                        label="Antecedentes"
-                                        hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.ant2"
-                                        label="Implantes"
-                                        hint="DIU, Osteosíntesis, Prótesis..."
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.ant3"
-                                        label="Lesiones Oseas"
-                                        hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.ant4"
-                                        label="Enf. Cardiovasculares"
-                                        hint="DIU, Osteosíntesis, Prótesis..."
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.ant5"
-                                        label="Lesiones Cutaneas"
-                                        hint="Alergia, soriasis, cicatrices..."
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.ant6"
-                                        label="Otras lesiones"
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="12" md="6">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.antobs"
-                                        label="Observaciones"
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="1">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.peso"
-                                        label="Peso"
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="1">
-                                    <v-text-field
-                                        class="font-weight-medium"
-                                        v-model="paciente.altura"
-                                        label="Altura"
-                                        v-on:keyup.enter="submit"
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" md="1">
-                                    <v-switch
-                                        label="Embarazada"
-                                        v-model="paciente.embarazada"
-                                        color="warning">
-                                    ></v-switch>
-                                </v-col>
-                                <v-col
-                                        cols="12"
-                                        md="1"
-                                    >
-                                </v-col>
-                                <v-col
-                                        cols="12"
-                                        md="1"
-                                    >
-                                        <v-btn v-if="paciente.fecha_baja == null" @click="submit"  rounded  :loading="loading" small color="primary">
-                                            Guardar
-                                        </v-btn>
-                                    </v-col>
-                            </v-row>
-                        </v-form>
-                        <v-row>
-                            <v-col cols="12" md="12">
-                                <historias :historias="historias"></historias>
-                            </v-col>
-                        </v-row>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-row>
-                            <v-col cols="12" md="12">
-                                <adjuntos :adjuntos="adjuntos"></adjuntos>
-                            </v-col>
-                        </v-row>
-                        <v-row v-if="isSupervisor">
-                            <v-col cols="12" md="4"></v-col>
-                            <v-col cols="12" md="3">
-                                <vue-dropzone
-                                            ref="myVueDropzone"
-                                            id="dropzone"
-                                            :options="dropzoneOptions"
-                                            v-on:vdropzone-success="uploadAdjunto"
-                                ></vue-dropzone>
-                            </v-col>
-                        </v-row>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-row>
-                            <v-col cols="12" md="12">
-                                <citas-lin v-if="isSupervisor" :citas="citas"></citas-lin>
-                                <citas-linred v-else :citas="citas"></citas-linred>
-                            </v-col>
-                        </v-row>
+
+                            </v-card-text>
+                        </v-card>
 
                     </v-tab-item>
                     <v-tab-item>
-                        <v-row>
-                            <v-col cols="12" md="12">
-                                <pacbonos :pacbonos="pacbonos"></pacbonos>
-                            </v-col>
-                        </v-row>
+                        <v-card flat>
+                            <v-card-text>
+                                <v-form>
+                                    <v-row>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.ant1"
+                                                label="Antecedentes"
+                                                hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.ant2"
+                                                label="Implantes"
+                                                hint="DIU, Osteosíntesis, Prótesis..."
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.ant3"
+                                                label="Lesiones Oseas"
+                                                hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.ant4"
+                                                label="Enf. Cardiovasculares"
+                                                hint="DIU, Osteosíntesis, Prótesis..."
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.ant5"
+                                                label="Lesiones Cutaneas"
+                                                hint="Alergia, soriasis, cicatrices..."
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.ant6"
+                                                label="Otras lesiones"
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.antobs"
+                                                label="Observaciones"
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="1">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.peso"
+                                                label="Peso"
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="1">
+                                            <v-text-field
+                                                class="font-weight-medium"
+                                                v-model="paciente.altura"
+                                                label="Altura"
+                                                v-on:keyup.enter="submit"
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="1">
+                                            <v-switch
+                                                label="Embarazada"
+                                                v-model="paciente.embarazada"
+                                                color="warning">
+                                            ></v-switch>
+                                        </v-col>
+                                        <v-col
+                                                cols="12"
+                                                md="1"
+                                            >
+                                        </v-col>
+                                        <v-col
+                                                cols="12"
+                                                md="1"
+                                            >
+                                                <v-btn v-if="paciente.fecha_baja == null" @click="submit"  rounded  :loading="loading" small color="primary">
+                                                    Guardar
+                                                </v-btn>
+                                            </v-col>
+                                    </v-row>
+                                </v-form>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <historias :historias="historias"></historias>
+                                    </v-col>
+                                </v-row>
+
+                            </v-card-text>
+                        </v-card>
+
                     </v-tab-item>
                     <v-tab-item>
-                        <v-row>
-                            <v-col cols="12" md="12">
-                                <facturas-lin :facturas="facturas"></facturas-lin>
-                            </v-col>
-                        </v-row>
+                        <v-card flat>
+                            <v-card-text>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <adjuntos :adjuntos="adjuntos"></adjuntos>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-if="isSupervisor">
+                                    <v-col cols="12" md="4"></v-col>
+                                    <v-col cols="12" md="3">
+                                        <vue-dropzone
+                                                    ref="myVueDropzone"
+                                                    id="dropzone"
+                                                    :options="dropzoneOptions"
+                                                    v-on:vdropzone-success="uploadAdjunto"
+                                        ></vue-dropzone>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card flat>
+                            <v-card-text>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <citas-lin v-if="isSupervisor" :citas="citas"></citas-lin>
+                                        <citas-linred v-else :citas="citas"></citas-linred>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card flat>
+                            <v-card-text>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <pacbonos :pacbonos="pacbonos"></pacbonos>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card flat>
+                            <v-card-text>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <facturas-lin :facturas="facturas"></facturas-lin>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
                     </v-tab-item>
                 </v-tabs>
             </v-container>
