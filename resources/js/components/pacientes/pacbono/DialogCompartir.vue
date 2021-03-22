@@ -46,8 +46,16 @@
             recomendado_id: null,
         }
     },
+    created: function () {
+        this.debouncedGetAnswer = _.debounce(this.getPacientes, 2000)
+    },
      watch: {
-        search (val) {
+        search: function (newQuestion, oldQuestion) {
+            this.debouncedGetAnswer()
+        },
+    },
+    methods:{
+        getPacientes() {
 
             if (this.search == null || this.search.length <= 4) return;
 
@@ -77,8 +85,6 @@
 
 
         },
-    },
-    methods:{
         clearRec(){
             this.recomendado_id = null;
             this.recomendados = [];

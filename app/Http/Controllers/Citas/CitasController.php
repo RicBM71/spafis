@@ -430,13 +430,15 @@ class CitasController extends Controller
 
         $hoy = Carbon::now();
 
+        $h = $hoy->format('H:m:s');
+
         $data['estado_id'] = 2;
         $data['updated_at'] = $hoy;
         $data['username'] = session('username');
 
         $rows = Cita::where('area_id', 1)
                     ->where('fecha', $hoy->format('Y-m-d'))
-                    ->where('hora', '<=', $hoy->format('H:m:s'))
+                    ->where('hora', '<=', $h)
                     ->where('estado_id', 1)
                     ->update($data);
 

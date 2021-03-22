@@ -126,6 +126,38 @@ class PrintJustificanteController extends Controller
         PDF::Ln();
 
 
+        // set style for barcode
+        $style = array(
+            'position' => '',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+
+        // write RAW 2D Barcode
+
+        // $code = 'YP174064';
+        // // Interleaved 2 of 5
+        // //$pdf->Cell(0, 0, 'Interleaved 2 of 5', 0, 1);
+        // PDF::write1DBarcode($code, 'C128', '', '', '', 18, 0.4, $style, 'N');
+        // $code = 'YP11264';
+        // PDF::write1DBarcode($code, 'C128', '10', '100', '', 18, 0.4, $style, 'N');
+        // $code = 'YP11004';
+        // PDF::write1DBarcode($code, 'C128', '90', '100', '50', 14, 0.4, $style, 'N');
+
+
+
         $txt = "Firma y Sello del Centro";
         PDF::Write($h=0, $txt, '', 0, 'C', true, 0, false, true, 0);
 
