@@ -162,23 +162,62 @@
                             <v-icon>mdi-chevron-right</v-icon>
                         </v-btn>
                     </v-col>
-
-
                     <v-col
                         class="pa-0 ma-1"
                         cols="5"
-                        md="1"
+                        md="2"
                     >
-                        <v-select
-                            class="caption"
-                            v-model="type"
-                            :items="typeOptions"
-                            dense
+                        <v-btn
+                            v-if="type=='day'"
+                            class="ma-2"
                             outlined
-                            hide-details
-                            label="Vista"
-                            @change="setType"
-                        ></v-select>
+                            color="indigo"
+                            small
+                            @click="setType('custom-daily')"
+                        >
+                            <span class="caption">Semana</span>
+                        </v-btn>
+                        <v-btn
+                            v-else
+                            class="caption ma-2"
+                            color="indigo"
+                            small
+                            outlined
+                            @click="setType('day')"
+                        >
+                            <span class="caption">Ver Día</span>
+                        </v-btn>
+
+                        <v-btn
+                            v-if="activa=='A'"
+                            class="ma-2"
+                            outlined
+                            color="indigo"
+                            small
+                            @click="setActiva('B')"
+                        >
+                            <span class="caption">Activas</span>
+                        </v-btn>
+                        <v-btn
+                            v-if="activa=='B'"
+                            class="caption ma-2"
+                            color="indigo"
+                            small
+                            outlined
+                            @click="setActiva('T')"
+                        >
+                            <span class="caption">Anuladas</span>
+                        </v-btn>
+                        <v-btn
+                            v-if="activa=='T'"
+                            class="caption ma-2"
+                            color="indigo"
+                            small
+                            outlined
+                            @click="setActiva('A')"
+                        >
+                            <span class="caption">Todas</span>
+                        </v-btn>
                     </v-col>
                     <v-col
                         class="pa-0 ma-1"
@@ -196,7 +235,7 @@
                             @change="reloadFisAct()"
                         ></v-select>
                     </v-col>
-                    <v-col
+                    <!-- <v-col
                         class="pa-0 ma-1"
                         cols="5"
                         md="1"
@@ -211,7 +250,7 @@
                             label="Citas"
                             @change="reloadFisAct()"
                         ></v-select>
-                    </v-col>
+                    </v-col> -->
                     <v-col
                         class="pa-0 ma-1"
                         cols="5"
@@ -1159,7 +1198,8 @@ import {mapState} from 'vuex'
                         console.log(err);
                     })
             },
-            setType(){
+            setType(type){
+                this.type = type;
                 if (this.type =="category"){
                     if (this.facultativo == null)
                         this.facultativo_id = null;
@@ -1168,6 +1208,10 @@ import {mapState} from 'vuex'
 
                     this.reload_id++;
                 }
+            },
+            setActiva(st){
+                this.activa = st;
+                this.reloadFisAct();
             },
             LightenDarkenColor(color,percent=-20){
 
