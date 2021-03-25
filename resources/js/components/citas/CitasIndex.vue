@@ -709,6 +709,7 @@ import {mapState} from 'vuex'
             mi_fecha: function () {
 
                 if (this.action_cita == 'A'){
+                    console.log('mi_fecha '+this.action_cita);
                     this.cita.fecha = this.mi_fecha;
                     this.$refs.componentAddCita.loadHoras();
                 }

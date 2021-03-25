@@ -411,28 +411,28 @@ export default {
 
 
         },
-        loadHoras(){
+        // loadHoras(){
 
-            this.loading = true;
-            axios.post('/tools/citas/huecos', {
-                    paciente_id : this.cita.paciente_id,
-                    tratamiento_id : this.cita.tratamiento_id,
-                    fecha : this.cita.fecha,
-                    facultativo_id : this.cita.facultativo_id,
-                    hora : this.cita.hora
-            })
-                .then(res => {
-                    this.horas = res.data.horas;
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-                .finally(()=>{
-                    this.loading = false;
-                });
+        //     this.loading = true;
+        //     axios.post('/tools/citas/huecos', {
+        //             paciente_id : this.cita.paciente_id,
+        //             tratamiento_id : this.cita.tratamiento_id,
+        //             fecha : this.cita.fecha,
+        //             facultativo_id : this.cita.facultativo_id,
+        //             hora : this.cita.hora
+        //     })
+        //         .then(res => {
+        //             this.horas = res.data.horas;
+        //         })
+        //         .catch(err => {
+        //             console.log(err);
+        //         })
+        //         .finally(()=>{
+        //             this.loading = false;
+        //         });
 
 
-        },
+        // },
         submit() {
             if (this.loading === false){
                 this.loading = true;
