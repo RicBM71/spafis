@@ -359,12 +359,12 @@
                 <v-col
                     class="pa-1"
                     cols="12"
-                    md="2"
+                    md="3"
                 >
                     <v-textarea
                         class="caption"
                         hide-details="true"
-                        rows=2
+                        rows=4
                         outlined
                         dense
                         v-model="computedNotas"
@@ -377,13 +377,13 @@
                 <v-col
                     class="pa-1"
                     cols="12"
-                    md="6"
+                    md="5"
                 >
                     <v-textarea
                         class="caption"
                         v-if="hasClinic"
                         hide-details="true"
-                        rows=2
+                        rows=4
                         dense
                         outlined
                         :label="computedLabelHistoria"
@@ -535,6 +535,7 @@
                     </v-tooltip>
                 </v-col>
             </v-row>
+            <br/>
             <br/>
         </div>
 
@@ -921,5 +922,16 @@ export default {
 .inputNumber >>> input {
   text-align: center;
   -moz-appearance:textfield;
+}
+
+.v-textarea >>> textarea {
+    align-self: stretch;
+    flex: 1 1 auto;
+    line-height: 1.2rem;
+    max-width: 100%;
+    min-height: 32px;
+    outline: none;
+    padding: 0;
+    width: 100%;
 }
 </style>

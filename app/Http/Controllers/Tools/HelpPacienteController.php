@@ -24,8 +24,8 @@ class HelpPacienteController extends Controller
 
             return Paciente::select(DB::raw('id AS value, CONCAT(nombre," ",apellidos) AS text'))
                     ->razon($data['search'])
-                    ->orderBy('nombre')
-                    ->orderBy('apellidos')
+                    ->orderBy('nombre', 'asc')
+                    ->orderBy('apellidos', 'asc')
                     ->get();
         }
     }
