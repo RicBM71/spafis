@@ -351,7 +351,7 @@
                                     >
                                         <v-text-field
                                             v-model="paciente.profesion"
-                                            v-validate="'profesion'"
+                                            v-validate="'max:50'"
                                             :error-messages="errors.collect('profesion')"
                                             label="Profesión"
                                             data-vv-name="profesion"

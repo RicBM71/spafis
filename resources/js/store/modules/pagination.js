@@ -13,11 +13,8 @@ export const UNSET_PAGINATION = 'UNSET_PAGINATION';
 */
 const initialState = {
     model: null,
-    search: null,
-    descending: null,
-    page: 1,
-    rowsPerPage: 10,
-    sortBy: null
+    filtro: false,
+    options: {},
 };
 
 /*
@@ -28,19 +25,13 @@ const initialState = {
 const mutations = {
 	[SET_PAGINATION](state, payload) {
         state.model = payload.pagination.model;
-        state.search = payload.pagination.search;
-		state.descending = payload.pagination.descending;
-        state.page = payload.pagination.page;
-        state.rowsPerPage = payload.pagination.rowsPerPage;
-        state.sortBy = payload.pagination.sortBy;
+        state.filtro = payload.pagination.filtro;
+        state.options = payload.pagination.options;
 	},
 	[UNSET_PAGINATION](state, payload) {
         state.model = null;
-        state.search = null;
-		state.descending = null;
-        state.page = 1;
-        state.rowsPerPage = 5;
-        state.sortBy = null;
+        state.filtro = false;
+        state.options = {};
 	}
 };
 

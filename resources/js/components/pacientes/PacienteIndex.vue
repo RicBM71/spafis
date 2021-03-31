@@ -43,7 +43,7 @@
             </v-card>
             <v-card v-show="show_filtro">
                 <v-card-text>
-                    <filtro :show_filtro.sync="show_filtro" :items.sync="items"></filtro>
+                    <filtro :show_filtro.sync="show_filtro" :items.sync="items" :filtro_query.sync="filtro_query"></filtro>
                 </v-card-text>
             </v-card>
             <v-card>
@@ -62,6 +62,7 @@
                         :search="search"
                         :headers="headers"
                         :items="items"
+                        :options.sync="options"
                     >
                     <template v-slot:item.actions="{ item }">
                         <v-icon
@@ -75,6 +76,13 @@
                             @click="openDialog(item.id)"
                         >
                             mdi-delete
+                        </v-icon>
+                        <v-icon
+                            v-show="item.espera == true"
+                            small
+                            @click="setEspera(item)"
+                        >
+                            mdi-marker-cancel
                         </v-icon>
                     </template>
                     <template v-slot:item.id="{ item }">
@@ -166,6 +174,14 @@ import {mapActions} from "vuex";
                 value: 'actions',
             }
         ],
+
+        options: {
+            page: 1,
+            itemsPerPage: 10,
+            sortBy: ['id'],
+            sortDesc: [true],
+        },
+
         items:[],
 
         dialog: false,
@@ -174,37 +190,56 @@ import {mapActions} from "vuex";
         show_filtro: false,
         url: "/mto/pacientes",
         ruta: "paciente",
+        filtro_query:false
 
       }
     },
     mounted()
     {
 
+        if (this.getPagination.model == this.ruta && this.getPagination.filtro !== false){
+            axios.post('/mto/pacientes/filtrar', this.getPagination.filtro)
+                .then(res => {
+                    this.items = res.data;
+                    this.filtro_query = this.getPagination.filtro;
+                    this.options = this.getPagination.options;
+                    this.show_loading = false;
+                })
+                .catch(err =>{
+                    console.log(err);
+                    this.show_loading = false;
+                })
+        }
+        else{
+            axios.get(this.url)
+                .then(res => {
+                    this.options = this.getPagination.options;
+                    this.items = res.data;
+                })
+                .catch(err =>{
+                    this.$toast.error(err.response.data.message);
+                    this.$router.push({ name: 'dash' })
+                })
+                .finally(()=>{
+                    this.show_loading = false;
+                });
+        }
 
-        axios.get(this.url)
-            .then(res => {
 
-                this.items = res.data;
-
-
-            })
-            .catch(err =>{
-
-                this.$toast.error(err.response.data.message);
-                this.$router.push({ name: 'dash' })
-            })
-            .finally(()=>{
-                this.show_loading = false;
-            });
     },
     computed: {
         ...mapGetters([
             'isAdmin',
             'isSupervisor',
-            'hasContact'
+            'hasContact',
+            'getPagination'
         ])
     },
     methods:{
+        ...mapActions([
+            'setPagination',
+            'unsetPagination'
+        ]),
         formatDate(f){
             if (f == null) return null;
             moment.locale('es');
@@ -214,7 +249,27 @@ import {mapActions} from "vuex";
             this.$router.push({ name: this.ruta+'.create'})
         },
         editItem (id) {
+
+            this.setPagination({
+                    'model'   : this.ruta,
+                    'options' : this.options,
+                    'filtro'  : this.filtro_query}
+                );
             this.$router.push({ name: this.ruta+'.edit', params: { id: id } })
+        },
+        setEspera(item) {
+
+            item.espera = false;
+
+            axios.put(this.url+"/"+item.id, item)
+                .then(res => {
+                    //item = res.data.paciente;
+                })
+                .catch(err => {
+                })
+                .finally(()=> {
+                });
+
         },
         openDialog (id){
             this.dialog = true;

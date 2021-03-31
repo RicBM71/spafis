@@ -58,10 +58,7 @@ export default {
     $_veeValidate: {
         validator: 'new'
     },
-    props:{
-        show_filtro: Boolean,
-        items: Array
-    },
+    props:['show_filtro','items','filtro_query'],
     data () {
       return {
             query:{
@@ -88,6 +85,8 @@ export default {
                         .then(res => {
 
                             this.loading = false;
+                            
+                            this.$emit('update:filtro_query', this.query);
 
                              if (res.data.length > 0){
                                  this.$emit('update:items', res.data);
