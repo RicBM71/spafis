@@ -5,7 +5,7 @@
         <v-col cols="12" md="10"  offset-md="1">
             <v-data-table
                 :headers="headers"
-                :items="faclins"
+                :items="items"
                 dense
             >
                 <template v-slot:item.actions="{ item }">
@@ -65,12 +65,11 @@
 </template>
 <script>
 import {mapGetters} from 'vuex';
-import moment from 'moment'
 import MyDialog from '@/components/shared/MyDialog'
 import FaclinCreate from './FaclinCreate'
 import FaclinEdit from './FaclinEdit'
 export default {
-    props:['factura','faclins','total_factura','reload'],
+    props:['factura','dialog_pendientes'],
     components: {
         'my-dialog': MyDialog,
         'lines-create': FaclinCreate,
@@ -78,9 +77,12 @@ export default {
 	},
     data () {
         return {
-           dialog: false,
-           dialog_lin_add: false,
-           dialog_lin_edit: false,
+            dialog: false,
+            dialog_lin_add: false,
+            dialog_lin_edit: false,
+            items:[],
+            reload: 0,
+            total_factura: 0,
 
             editedIndex: -1,
             editedItem: {id:0},
@@ -114,7 +116,8 @@ export default {
         },
     mounted(){
 
-        this.$emit('update:reload', (this.reload + 1));
+        this.refreshLines();
+
     },
     computed:{
          ...mapGetters([
@@ -130,15 +133,39 @@ export default {
     watch: {
         dialog_lin_edit: function () {
             this.$emit('update:reload', (this.reload + 1));
-        }
+        },
+        dialog_pendientes: function () {
+
+            this.refreshLines();
+        },
+        reload: function () {
+            this.refreshLines();
+        },
     },
     methods:{
+        refreshLines(){
+
+            axios.get('/facturas/factlins/'+this.factura.id)
+            .then(res => {
+                this.items = res.data.lineas;
+                this.total_factura = res.data.total;
+                //this.$emit('update:totales', res.data.totales);
+            })
+            .catch(err => {
+                if (err.response.status == 404)
+                    this.$toast.error("Factura No encontrada!");
+                else
+                    this.$toast.error(err.response.data.message);
+                this.$router.push({ name: 'factura.index'})
+            })
+
+        },
         create(){
             this.dialog_lin_add = true;
         },
         editItem(item){
 
-            this.editedIndex = this.faclins.indexOf(item)
+            this.editedIndex = this.items.indexOf(item)
             this.editedItem = item;
 
             this.dialog_lin_edit = true
@@ -153,7 +180,7 @@ export default {
 
             axios.post('/facturas/factlins/'+this.faclins_id,{_method: 'delete'})
                 .then(res => {
-                    this.$emit('update:reload', (this.reload + 1));
+                    this.refreshLines();
             })
             .catch(err => {
                 this.status = true;

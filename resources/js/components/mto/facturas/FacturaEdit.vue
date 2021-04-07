@@ -240,11 +240,9 @@
             </v-form>
             <v-container>
                 <fact-lin
-                    v-if="factura.id>0"
-                    :reload.sync="reload"
-                    :factura.sync="factura"
-                    :faclins="faclins"
-                    :total_factura="total_factura"
+                    v-if="factura.id > 0"
+                    :dialog_pendientes.sync="dialog_pendientes"
+                    :factura="factura"
                 ></fact-lin>
             </v-container>
         </v-card>
@@ -298,7 +296,7 @@ import Pendientes from './Pendientes'
                 empresas:[],
       		}
         },
-        beforeMount(){
+        mounted(){
 
             var id = this.$route.params.id;
 
@@ -306,11 +304,9 @@ import Pendientes from './Pendientes'
                 axios.get(this.url+'/'+id+'/edit')
                     .then(res => {
                         this.factura = res.data.factura;
-
                         this.fpagos = res.data.fpagos;
                         this.cuentas = res.data.cuentas;
                         this.reload++;
-
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
@@ -372,25 +368,6 @@ import Pendientes from './Pendientes'
 
         },
         watch: {
-
-            reload: function () {
-
-                axios.get('/facturas/factlins/'+this.factura.id)
-                .then(res => {
-                    this.faclins = res.data.lineas;
-                    this.total_factura = res.data.total;
-                    //this.$emit('update:totales', res.data.totales);
-                })
-                .catch(err => {
-                    if (err.response.status == 404)
-                        this.$toast.error("Factura No encontrada!");
-                    else
-                        this.$toast.error(err.response.data.message);
-                    this.$router.push({ name: 'factura.index'})
-                })
-
-        },
-
         },
     	methods:{
             ...mapActions([

@@ -194,7 +194,7 @@ class HelpCitasController extends Controller
                                     ->whereYear('fecha', $data['ejercicio'])
                                     ->where('paciente_id', $data['paciente_id'])
                                     ->whereNull('factura_id')
-                                    //->where('importe','>',0)
+                                    ->where('importe','>',0)
                                     ->get(),
             ];
 

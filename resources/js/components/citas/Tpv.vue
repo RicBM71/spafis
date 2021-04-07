@@ -25,7 +25,7 @@
                     <v-card-text>
                     <v-row>
                         <v-col cols="6">
-                            <v-card class="pa-1">
+                            <v-card class="pa-3">
                                 <v-row>
                                     <v-col
                                         cols="10"
@@ -86,8 +86,8 @@
                             </v-card>
                         </v-col>
                         <v-col cols="6">
-                            <v-card class="pa-1">
-                                <v-row class="pa-0">
+                            <v-card class="pa-3">
+                                <v-row>
                                     <v-col
                                         cols="5"
                                         offset-md="1"

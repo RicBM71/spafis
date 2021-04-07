@@ -61,7 +61,7 @@ import moment from 'moment'
             )
             .then(res => {
                 this.items = res.data.items;
-                console.log(this.items);
+                
             })
             .catch(err => {
                 console.log(err);

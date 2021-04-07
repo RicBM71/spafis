@@ -82,7 +82,6 @@
         },
     }),
     computed:{
-
         computedImporte(){
             var importe = (this.item.importe_unidad * this.item.unidades).toFixed(2);
             return this.item.importe_venta = (importe - (importe * this.item.descuento / 100)).toFixed(2);
@@ -106,10 +105,11 @@
 
                         axios.post(url, this.item)
                             .then(res => {
-                                //this.$router.push({ name: 'albaran.edit', params: { id: this.compra_id } })
-                                const i = this.reload + 1;
+                                console.log(this.computedReload);
+
                                 this.loading = false;
-                                this.$emit('update:reload', i);
+                                this.$emit('update:reload', this.reload + 1);
+
                                 this.reset();
                                 this.$validator.reset();
                                 this.$emit('update:dialog_lin_add', false)
