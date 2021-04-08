@@ -84,6 +84,7 @@ class PacientesController extends Controller
             'apellidos' => ['required', 'string', 'max:50'],
         ]);
 
+        $data['exportar'] = true;
         $data['poblacion'] = session('empresa')->poblacion;
         $data['cpostal'] = session('empresa')->cpostal;
         $data['provincia'] = session('empresa')->provincia;
