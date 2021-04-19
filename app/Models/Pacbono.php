@@ -66,7 +66,7 @@ class Pacbono extends Model
 
 
 
-        $resto = DB::table('citas')
+        $usadas = DB::table('citas')
                     // ->where('citas.paciente_id', $paciente_id)
                     ->where('citas.bono', $numero_bono)
                     ->where('citas.fecha', '>=', $bono->fecha)
@@ -79,7 +79,8 @@ class Pacbono extends Model
         return [
             'numero_bono' => $bono->bono,
             'sesiones'    => $bono->sesiones,
-            'resto'       => ($bono->sesiones - $resto)
+            'usadas'      => $usadas,
+            'resto'       => ($bono->sesiones - $usadas)
         ];
 
 	}

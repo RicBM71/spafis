@@ -705,10 +705,10 @@ export default {
             return this.getCurrencyFormat(this.saldo);
         },
         computedBono(){
-            console.log(this.bono);
+
             if (this.bono == null || this.cita.fecha > this.hoy) return null;
             if (this.bono.numero_bono > 0)
-                return  this.bono.numero_bono+" ("+this.bono.resto + "/" + this.bono.sesiones + ") +" + (this.bono.sesiones - this.bono.resto);
+                return  this.bono.numero_bono+" ("+this.bono.usadas + "/" + this.bono.sesiones + ") +" + (this.bono.resto);
         }
     },
 
