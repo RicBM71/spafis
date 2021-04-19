@@ -79,7 +79,7 @@ class Pacbono extends Model
         return [
             'numero_bono' => $bono->bono,
             'sesiones'    => $bono->sesiones,
-            'resto'       => $resto
+            'resto'       => ($bono->sesiones - $resto)
         ];
 
 	}

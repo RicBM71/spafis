@@ -216,7 +216,7 @@ class PrintCitasController extends Controller
             PDF::MultiCell($w=34, $maxh, $next, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             $bono_txt = '';
             if ($bono['numero_bono'] > 0){
-                $bono_txt = 'Bono: +'.$bono['resto'];//.'/'.$bono['sesiones'];
+                $bono_txt = 'Bono: -'.$bono['resto'];//.'/'.$bono['sesiones'];
             }
             PDF::MultiCell($w=12, $maxh, $bono_txt, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
 
