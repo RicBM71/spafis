@@ -199,7 +199,7 @@ class PrintCitasController extends Controller
 
             $bono = Pacbono::getSesionesBono($cita->paciente_id, $cita->bono);
 
-            $hc = Historia::where('paciente_id', $cita->paciente_id)->orderBy('fecha','desc')->first();
+            $hc = Historia::where('paciente_id', $cita->paciente_id)->orderBy('updated_at','desc')->first();
 
 
             $notas = $cita->notas." ".$cita->paciente->notas2;

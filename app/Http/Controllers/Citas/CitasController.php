@@ -345,7 +345,7 @@ class CitasController extends Controller
             return [
                 'cita'      => $cita->load(['paciente.medio','tratamiento','facultativo','estado']),
                 'saldo'     => Cita::getSaldo($cita->paciente_id, $fecha_saldo, $cita->sociedad_id),
-                'historia'  => Historia::where('paciente_id', $cita->paciente_id)->orderBy('fecha','desc')->first(),
+                'historia'  => Historia::where('paciente_id', $cita->paciente_id)->orderBy('updated_at','desc')->first(),
                 'bono'      => Pacbono::getSesionesBono($cita->paciente_id, $cita->bono),
                 'whatsapp'  => getWhatsAppCita($cita),
                 'ultima'    => Cita::getUltima($cita->paciente_id, $cita->fecha),
