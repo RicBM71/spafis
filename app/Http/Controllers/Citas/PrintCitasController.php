@@ -41,6 +41,7 @@ class PrintCitasController extends Controller
         $citas = Cita::where('paciente_id', $paciente_id)
                     ->where('fecha', '>=', Carbon::today())
                     ->where('estado_id', 1)
+                    ->where('area_id', '<>', '9999')
                     ->orderBy('fecha','asc')
                     ->orderBy('hora', 'asc')
                     ->get()
