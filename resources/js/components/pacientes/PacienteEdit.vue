@@ -822,7 +822,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
                     acceptedFiles: '.jpg,jpeg,.png,.pdf',
                     thumbnailWidth: 150,
                     maxFiles: 1,
-                    maxFilesize: 4,
+                    maxFilesize: 8,
                     headers: {
 		    		    'X-CSRF-TOKEN':  window.axios.defaults.headers.common['X-CSRF-TOKEN']
                     },
