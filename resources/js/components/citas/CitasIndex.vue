@@ -886,6 +886,7 @@ import {mapState} from 'vuex'
                 this.axFisAct();
                 this.cita.facultativo_id = this.facultativo_id;
                 console.log('reloadFisAct');
+                this.setType('custom-daily')
 
                 if (this.action_cita == 'A')
                     this.$refs.componentAddCita.loadHoras();
