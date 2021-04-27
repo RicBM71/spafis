@@ -882,7 +882,7 @@ import {mapState} from 'vuex'
 
                 this.reload(this.mi_fecha,0);
             },
-            reloadFisAct(){
+            changeFisAct(){
                 this.setType('custom-daily');
                 this.reloadFisAct();
             },
