@@ -232,7 +232,7 @@
                             outlined
                             hide-details
                             label="Facultativo"
-                            @change="reloadFisAct()"
+                            @change="changeFisAct()"
                         ></v-select>
                     </v-col>
                     <!-- <v-col
@@ -883,10 +883,13 @@ import {mapState} from 'vuex'
                 this.reload(this.mi_fecha,0);
             },
             reloadFisAct(){
+                this.setType('custom-daily');
+                this.reloadFisAct();
+            },
+            reloadFisAct(){
                 this.axFisAct();
                 this.cita.facultativo_id = this.facultativo_id;
                 console.log('reloadFisAct');
-                this.setType('custom-daily')
 
                 if (this.action_cita == 'A')
                     this.$refs.componentAddCita.loadHoras();
