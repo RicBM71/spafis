@@ -127,7 +127,7 @@ class Paciente extends Model
             $today = Carbon::today();
 
             if (substr($this->fecha_nacimiento,5,6) == date('m-d')){
-                $cumple = 'Felicitar!';
+                $cumple = 'CUMPLEAÑOS!';
             }else if (substr($this->fecha_nacimiento,5,2) == date('m')){
 
                 $fecha_cumple = $today->format('Y').'-'.substr($this->fecha_nacimiento,5,6);

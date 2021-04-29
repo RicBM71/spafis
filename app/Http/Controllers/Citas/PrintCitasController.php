@@ -214,16 +214,18 @@ class PrintCitasController extends Controller
                 PDF::MultiCell($w=40, $maxh, $cita->paciente->ape, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             }
 
+            $cumple = $cita->paciente->cumple;
+
             PDF::MultiCell($w=34, $maxh, $next, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             $bono_txt = '';
             if ($bono['numero_bono'] > 0){
-                $bono_txt = 'Bono: +'.$bono['resto'];//.'/'.$bono['sesiones'];
+                $bono_txt = 'Bono: +'.$bono['resto'].' ';
             }
-            PDF::MultiCell($w=12, $maxh, $bono_txt, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=22, $maxh, $bono_txt.$cumple, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
 
             PDF::SetTextColor(240,0,0);
             PDF::MultiCell($w=18, $maxh, $embarazada, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
-            PDF::MultiCell($w=40, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
+            PDF::MultiCell($w=30, $maxh, $informes_no_leidos, $border='T', $align='L', $fill=0, $ln=0, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh,'M');
             PDF::SetTextColor(0,0,0);
 
             //PDF::writeHTML($ultimas, true, false, true, false, '');
