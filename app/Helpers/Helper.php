@@ -48,7 +48,7 @@ function getHora($value)
 
     if (is_null($value)) return null;
 
-    return Carbon::parse($value)->format('H:mm');
+    return Carbon::parse($value)->isoFormat('H:mm');
 
 }
 
