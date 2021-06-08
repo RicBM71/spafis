@@ -1001,7 +1001,8 @@ import {mapState} from 'vuex'
                 // console.log('addDayCategory');
                 if (this.action_cita == 'E' || this.action_cita == 'A'){
 
-
+                    if (this.facultativo_id > 0 && this.cita.facultativo_id != this.facultativo_id)
+                        this.cita.facultativo_id = this.facultativo_id;
 
                     if (this.cita.tune){
                         this.cita.fecha = e.date;
