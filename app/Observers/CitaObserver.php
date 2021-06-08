@@ -30,7 +30,8 @@ class CitaObserver
     public function updating(Cita $cita)
     {
 
-        $this->cancelSMS($cita);
+        if ($cita->estado_id == 1 || $cita->estado_id == 4)
+            $this->cancelSMS($cita);
 
         $data = $cita->toArray();
 

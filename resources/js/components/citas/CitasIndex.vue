@@ -405,7 +405,8 @@
                     :cita.sync="cita"
                     :action_cita.sync="action_cita"
                     :reload_id.sync="reload_id"
-                    :show_loading.sync="show_loading">
+                    :show_loading.sync="show_loading"
+                    :facultativo_id="facultativo_id">
                 </add-cita>
 
                 <cobros v-if="action_cita=='C'"

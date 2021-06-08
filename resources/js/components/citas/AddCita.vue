@@ -252,7 +252,7 @@
 import moment from 'moment'
 import {mapGetters} from 'vuex';
 export default {
-    props:['cita', 'action_cita', 'reload_id','show_loading'],
+    props:['cita', 'action_cita', 'reload_id','show_loading','facultativo_id'],
     data () {
         return {
             loading: false,
@@ -321,6 +321,8 @@ export default {
     watch: {
         reload_id: function () {
             this.calcularPVP();
+            // if (this.facultativo_id > 0 && this.cita.facultativo_id != this.facultativo_id)
+            //     this.cita.facultativo_id = this.facultativo_id;
         },
         action_cita: function () {
 
@@ -397,7 +399,7 @@ export default {
                     this.cita.iva = res.data.precios.iva;
                     this.cita.importe_ponderado = res.data.precios.importe_ponderado;
                     this.horas = res.data.horas;
-                    console.log(this.horas);
+
                     if (this.horas.length > 0){
                         this.hora = this.horas[0].value;
                     }
