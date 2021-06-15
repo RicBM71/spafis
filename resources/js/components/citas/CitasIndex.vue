@@ -3,7 +3,7 @@
         <loading :show_loading="show_loading"></loading>
         <v-card v-show="load_ini">
             <v-card-text>
-                <v-row>
+                <v-row v-show="lin_cab">
                     <v-col
                         v-if="areas.length > 1"
                         class="pa-0 ma-1"
@@ -133,6 +133,22 @@
                                 </v-btn>
                             </template>
                             <span>Tratar todas</span>
+                        </v-tooltip>
+                        <v-tooltip top v-if="isAdmin">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                    small
+                                    class="ma-2"
+                                    color="primary"
+                                    icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    @click="goChangeView"
+                                >
+                                    <v-icon>mdi-atom</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Ampliar para Timming</span>
                         </v-tooltip>
                         <v-btn
                             small
@@ -295,7 +311,7 @@
                         class="pa-0 mb-1"
                         cols="12"
                     >
-                        <v-sheet height="570" v-if="citas.length > 0">
+                        <v-sheet :height="heigth_cal" v-if="citas.length > 0">
 
                             <v-calendar
                                 ref="calendar"
@@ -350,7 +366,7 @@
                                             <b :color="colores[event.estado_id]">{{getTimeFormat(event.start)}}</b> - <span :class="textAnulado(event.estado_id)">{{ event.name }}</span>
                                             <span>- {{getTimeFormat(event.end)}}</span>
                                             <span v-if="isSupervisor && event.notas == null && event.importe > 0" style="float:right;padding-right:5px;">{{ getCurrencyFormat(event.importe)}}</span>
-                                            <br/>
+                                            <span v-if="heigth_cal==570"><br/></span>
                                             <span v-if="event.tratamiento!=null">({{ event.tratamiento}})</span> <span> <b v-if="isSupervisor && event.bono != null" :style="{'color':'white','background-color':'#880E4F'}">({{event.bono}})</b> </span>
 
                                             <span style="color:#880E4F">{{event.notas}}</span>
@@ -521,6 +537,8 @@ import {mapState} from 'vuex'
     	data () {
 
             return {
+                heigth_cal: 570,
+                lin_cab: true,
                 load_ini: false,
                 drawer: false,
                 titulo:"Timing Citas",
@@ -786,6 +804,13 @@ import {mapState} from 'vuex'
             ...mapActions([
                 'setCita',
 			]),
+            goChangeView(){
+                intervalsDefault.height = 32;
+                console.log(intervalsDefault);
+
+                this.heigth_cal = 850;
+                this.lin_cab = false;
+            },
             getCurrencyFormat(value){
                 return value == null ?  null : new Intl.NumberFormat("de-DE",{style: "currency", currency: "EUR",minimumFractionDigits:0}).format(parseFloat(value))
             },
