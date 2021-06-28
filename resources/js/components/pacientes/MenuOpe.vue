@@ -15,7 +15,7 @@
             </template>
             <span>Balance</span>
         </v-tooltip>
-        <v-tooltip bottom v-if="isSupervisor && foto==false">
+        <v-tooltip bottom v-if="hasContact && foto==false">
             <template v-slot:activator="{ on }">
                 <v-btn
                     v-on="on"
@@ -44,7 +44,7 @@
         <v-tooltip bottom v-if="recomendado_id > 0">
             <template v-slot:activator="{ on }">
                 <v-btn
-                    :disabled="!isSupervisor"
+                    :disabled="!hasContact"
                     v-on="on"
                     color="white"
                     icon
@@ -58,7 +58,7 @@
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
-                    :disabled="!isSupervisor"
+                    :disabled="!hasContact"
                     v-on="on"
                     color="white"
                     icon
@@ -72,7 +72,7 @@
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
-                    :disabled="!isSupervisor"
+                    :disabled="!hasContact"
                     v-on="on"
                     color="white"
                     icon
@@ -173,7 +173,7 @@ export default {
     computed: {
         ...mapGetters([
            'isAdmin',
-           'isSupervisor',
+           'hasContact',
            'hasDelete'
         ]),
     },
