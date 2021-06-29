@@ -209,7 +209,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'consultas',
-    'middleware' => ['auth','password','role:Admin']],
+    'middleware' => ['auth','password','permission:estadi']],
     function (){
         Route::get('cobrosmes', [App\Http\Controllers\Consultas\CobrosMesController::class, 'index']);
         Route::post('cobrosmes', [App\Http\Controllers\Consultas\CobrosMesController::class, 'submit']);

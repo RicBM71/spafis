@@ -136,6 +136,9 @@ const getters = {
     hasUpload: (state) =>{
         return (state.permisos.indexOf('upload') >= 0) ? true : false;
     },
+    hasEstadi: (state) =>{
+        return (state.permisos.indexOf('estadi') >= 0) ? true : false;
+    },
 };
 
 /*
